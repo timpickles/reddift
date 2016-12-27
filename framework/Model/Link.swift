@@ -293,6 +293,8 @@ public struct Link: Thing, Created, Votable {
         reportReasons = []
         modReports = []
         secureMediaEmbed = nil
+        
+        baseJson = JSONDictionary.init()
     }
     
     /**
