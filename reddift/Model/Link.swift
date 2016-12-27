@@ -263,7 +263,6 @@ public struct Link: Thing {
         hidden = false
         thumbnail = ""
         subredditId = ""
-        baseJson = nil
         edited = false
         linkFlairCssClass = ""
         authorFlairCssClass = ""

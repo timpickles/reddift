@@ -1,0 +1,21 @@
+PODS:
+  - MiniKeychain (1.0.0)
+
+DEPENDENCIES:
+  - MiniKeychain (from `https://github.com/sonsongithub/MiniKeychain`)
+
+EXTERNAL SOURCES:
+  MiniKeychain:
+    :git: https://github.com/sonsongithub/MiniKeychain
+
+CHECKOUT OPTIONS:
+  MiniKeychain:
+    :commit: 41ec5aeec46169a5c2711224b0e3682faac51213
+    :git: https://github.com/sonsongithub/MiniKeychain
+
+SPEC CHECKSUMS:
+  MiniKeychain: 4604a4ff8f520d63f416d12c74d386c25d70ce5f
+
+PODFILE CHECKSUM: 4639b97eb8f0ad1af6ff956115b7edeb7ca99fe1
+
+COCOAPODS: 1.1.1

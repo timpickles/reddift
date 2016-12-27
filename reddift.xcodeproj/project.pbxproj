@@ -543,6 +543,7 @@
 		14F8126D1AFA07C5008F6F3C /* t4.json in Resources */ = {isa = PBXBuildFile; fileRef = 1440D5061AE7C9D500211DAD /* t4.json */; };
 		14F8126E1AFA07C5008F6F3C /* t5.json in Resources */ = {isa = PBXBuildFile; fileRef = 1440D5071AE7C9D500211DAD /* t5.json */; };
 		14F8126F1AFA07C5008F6F3C /* test_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 143427CC1AF95E80005D0E31 /* test_config.json */; };
+		5AD9E27AB0ECF7C8D2A68428 /* Pods_reddift_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -768,6 +769,9 @@
 		14F76FF41AECE01800A70AA5 /* Session+helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Session+helper.swift"; sourceTree = "<group>"; };
 		14F812001AF9EA9F008F6F3C /* reddift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = reddift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F8120A1AF9EA9F008F6F3C /* reddift-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "reddift-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79A40BA5A577D48786ED39C /* Pods-reddift-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C5B6FE20E1FA70EDE413ED41 /* Pods-reddift-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reddift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -798,6 +802,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD9E27AB0ECF7C8D2A68428 /* Pods_reddift_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -919,6 +924,8 @@
 				14B5EBCF1AF34E920065BC5E /* reddiftSample */,
 				14364D481BEDA9E300FECE58 /* reddiftSampleTV */,
 				147EADA11AD78568007FA2F4 /* Products */,
+				906604CF51C1B171FD6C5228 /* Pods */,
+				D755773E5878E688001BBCC2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1217,6 +1224,23 @@
 			name = playground;
 			sourceTree = "<group>";
 		};
+		906604CF51C1B171FD6C5228 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C5B6FE20E1FA70EDE413ED41 /* Pods-reddift-iOS.debug.xcconfig */,
+				A79A40BA5A577D48786ED39C /* Pods-reddift-iOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D755773E5878E688001BBCC2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1314,11 +1338,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 14B5EBC41AF34D590065BC5E /* Build configuration list for PBXNativeTarget "reddift-iOS" */;
 			buildPhases = (
+				A26021463B938CB231ED0BE7 /* [CP] Check Pods Manifest.lock */,
 				14E4D64C1C94473F00442A4A /* Swiftlint */,
 				14B5EBAC1AF34D580065BC5E /* Sources */,
 				14B5EBAD1AF34D580065BC5E /* Frameworks */,
 				14B5EBAE1AF34D580065BC5E /* Headers */,
 				14B5EBAF1AF34D580065BC5E /* Resources */,
+				E585641C82F4B00E30DCBA49 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1704,6 +1730,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\necho \"SwiftLint\"\nswiftlint\nelse\necho \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		A26021463B938CB231ED0BE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E585641C82F4B00E30DCBA49 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2470,6 +2526,7 @@
 		};
 		14B5EBC51AF34D590065BC5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5B6FE20E1FA70EDE413ED41 /* Pods-reddift-iOS.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -2498,6 +2555,7 @@
 		};
 		14B5EBC61AF34D590065BC5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A79A40BA5A577D48786ED39C /* Pods-reddift-iOS.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
