@@ -281,7 +281,6 @@ public struct Link: Thing {
         visited = false
         numReports = 0
         distinguished = false
-        baseJson = json:
         media = Media(json: [:])
         mediaEmbed = MediaEmbed(json: [:])
         
@@ -290,6 +289,8 @@ public struct Link: Thing {
         reportReasons = []
         modReports = []
         secureMediaEmbed = nil
+        
+        baseJson = JSONDictionary.init()
     }
     
     /**
