@@ -284,6 +284,7 @@ public struct Link: Thing, Created, Votable {
         visited = false
         numReports = 0
         distinguished = .none
+        baseJson = json
         media = Media(json: [:])
         mediaEmbed = MediaEmbed(json: [:])
         
