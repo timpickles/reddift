@@ -326,7 +326,6 @@ public struct Link: Thing, Created, Votable {
         over18 = data["over_18"] as? Bool ?? false
         hidden = data["hidden"] as? Bool ?? false
         thumbnail = convertObjectToEscapedURLString(data["thumbnail"])
-        thumbnail = convertObjectToEscapedURLString(data["preview"]["images"]["source"])
         subredditId = data["subreddit_id"] as? String ?? ""
         edited = data["edited"] as? Bool ?? false
         linkFlairCssClass = data["link_flair_css_class"] as? String ?? ""
