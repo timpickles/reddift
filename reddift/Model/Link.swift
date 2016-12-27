@@ -281,7 +281,7 @@ public struct Link: Thing {
         visited = false
         numReports = 0
         distinguished = false
-        baseJson = json
+        baseJson = json:
         media = Media(json: [:])
         mediaEmbed = MediaEmbed(json: [:])
         

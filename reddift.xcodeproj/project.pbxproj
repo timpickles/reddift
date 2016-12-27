@@ -544,6 +544,8 @@
 		14F8126E1AFA07C5008F6F3C /* t5.json in Resources */ = {isa = PBXBuildFile; fileRef = 1440D5071AE7C9D500211DAD /* t5.json */; };
 		14F8126F1AFA07C5008F6F3C /* test_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 143427CC1AF95E80005D0E31 /* test_config.json */; };
 		5AD9E27AB0ECF7C8D2A68428 /* Pods_reddift_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */; };
+		BEE5BF6F1E12D8D900E3C9AE /* MiniKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */; };
+		BEE5BF701E12D8D900E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -770,6 +772,8 @@
 		14F812001AF9EA9F008F6F3C /* reddift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = reddift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F8120A1AF9EA9F008F6F3C /* reddift-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "reddift-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79A40BA5A577D48786ED39C /* Pods-reddift-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniKeychain.h; sourceTree = "<group>"; };
+		BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniKeychain.swift; sourceTree = "<group>"; };
 		C5B6FE20E1FA70EDE413ED41 /* Pods-reddift-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reddift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -947,6 +951,8 @@
 		147EADA21AD78568007FA2F4 /* reddift */ = {
 			isa = PBXGroup;
 			children = (
+				BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */,
+				BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */,
 				14B5EBB51AF34D580065BC5E /* reddift.h */,
 				14BEDDFC1AE44FC5004F7860 /* Utility */,
 				14B8DE041ADD3DF300237350 /* Model */,
@@ -1259,6 +1265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B5EBB61AF34D580065BC5E /* reddift.h in Headers */,
+				BEE5BF6F1E12D8D900E3C9AE /* MiniKeychain.h in Headers */,
 				14BCBCB71BCE1E7500A1FFEB /* GTMDefines.h in Headers */,
 				14BCBCB81BCE1E7500A1FFEB /* GTMNSString+HTML.h in Headers */,
 			);
@@ -1976,6 +1983,7 @@
 				141B91C81B0A4FF900A9E6A6 /* Session+multireddit.swift in Sources */,
 				141B91BC1B0A4F9B00A9E6A6 /* Session+links.swift in Sources */,
 				14437BB01D657D1000DAAAA8 /* MiniKeychain.swift in Sources */,
+				BEE5BF701E12D8D900E3C9AE /* MiniKeychain.swift in Sources */,
 				14395C051BAF96E700726263 /* Session+Token.swift in Sources */,
 				147868B21BF41DFE00D493B5 /* User.swift in Sources */,
 				14F134EB1D03EC0900EF7ADB /* NSURLRequest+reddift.swift in Sources */,
