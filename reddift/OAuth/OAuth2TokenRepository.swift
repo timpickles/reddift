@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MiniKeychain
 
 /**
 Repository to contain OAuth2 tokens for reddit.com based on "KeychanAccess".
