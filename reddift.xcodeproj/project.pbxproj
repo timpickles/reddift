@@ -544,8 +544,17 @@
 		14F8126E1AFA07C5008F6F3C /* t5.json in Resources */ = {isa = PBXBuildFile; fileRef = 1440D5071AE7C9D500211DAD /* t5.json */; };
 		14F8126F1AFA07C5008F6F3C /* test_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 143427CC1AF95E80005D0E31 /* test_config.json */; };
 		5AD9E27AB0ECF7C8D2A68428 /* Pods_reddift_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */; };
-		BEE5BF6F1E12D8D900E3C9AE /* MiniKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */; };
-		BEE5BF701E12D8D900E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF731E14272800E3C9AE /* MiniKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BEE5BF711E14272800E3C9AE /* MiniKeychain.h */; };
+		BEE5BF741E14272800E3C9AE /* MiniKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BEE5BF711E14272800E3C9AE /* MiniKeychain.h */; };
+		BEE5BF751E14272800E3C9AE /* MiniKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = BEE5BF711E14272800E3C9AE /* MiniKeychain.h */; };
+		BEE5BF761E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF771E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF781E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF791E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF7A1E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF7B1E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF7C1E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
+		BEE5BF7D1E14272800E3C9AE /* MiniKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -772,8 +781,8 @@
 		14F812001AF9EA9F008F6F3C /* reddift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = reddift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F8120A1AF9EA9F008F6F3C /* reddift-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "reddift-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79A40BA5A577D48786ED39C /* Pods-reddift-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniKeychain.h; sourceTree = "<group>"; };
-		BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniKeychain.swift; sourceTree = "<group>"; };
+		BEE5BF711E14272800E3C9AE /* MiniKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MiniKeychain.h; path = vendor/MiniKeychain/MiniKeychain/MiniKeychain.h; sourceTree = "<group>"; };
+		BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MiniKeychain.swift; path = vendor/MiniKeychain/MiniKeychain/MiniKeychain.swift; sourceTree = "<group>"; };
 		C5B6FE20E1FA70EDE413ED41 /* Pods-reddift-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reddift-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reddift-iOS/Pods-reddift-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1C4F97F29F70D6DA7F4570 /* Pods_reddift_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reddift_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -951,8 +960,8 @@
 		147EADA21AD78568007FA2F4 /* reddift */ = {
 			isa = PBXGroup;
 			children = (
-				BEE5BF6D1E12D8D900E3C9AE /* MiniKeychain.h */,
-				BEE5BF6E1E12D8D900E3C9AE /* MiniKeychain.swift */,
+				BEE5BF711E14272800E3C9AE /* MiniKeychain.h */,
+				BEE5BF721E14272800E3C9AE /* MiniKeychain.swift */,
 				14B5EBB51AF34D580065BC5E /* reddift.h */,
 				14BEDDFC1AE44FC5004F7860 /* Utility */,
 				14B8DE041ADD3DF300237350 /* Model */,
@@ -1255,6 +1264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14364D101BEDA11B00FECE58 /* reddift.h in Headers */,
+				BEE5BF741E14272800E3C9AE /* MiniKeychain.h in Headers */,
 				14364CA41BEDA0DC00FECE58 /* GTMDefines.h in Headers */,
 				14364CA51BEDA0E200FECE58 /* GTMNSString+HTML.h in Headers */,
 			);
@@ -1265,7 +1275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B5EBB61AF34D580065BC5E /* reddift.h in Headers */,
-				BEE5BF6F1E12D8D900E3C9AE /* MiniKeychain.h in Headers */,
+				BEE5BF731E14272800E3C9AE /* MiniKeychain.h in Headers */,
 				14BCBCB71BCE1E7500A1FFEB /* GTMDefines.h in Headers */,
 				14BCBCB81BCE1E7500A1FFEB /* GTMNSString+HTML.h in Headers */,
 			);
@@ -1276,6 +1286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14F8125C1AF9F918008F6F3C /* reddift.h in Headers */,
+				BEE5BF751E14272800E3C9AE /* MiniKeychain.h in Headers */,
 				14BCBCBB1BCE20EF00A1FFEB /* GTMDefines.h in Headers */,
 				14BCBCBA1BCE20EA00A1FFEB /* GTMNSString+HTML.h in Headers */,
 			);
@@ -1781,6 +1792,7 @@
 				14364CF11BEDA10F00FECE58 /* Account.swift in Sources */,
 				14364CBF1BEDA10200FECE58 /* Session+moderation.swift in Sources */,
 				14364CF31BEDA10F00FECE58 /* Paginator.swift in Sources */,
+				BEE5BF781E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14437BB31D657D3D00DAAAA8 /* MiniKeychain.swift in Sources */,
 				14364D0A1BEDA11600FECE58 /* helper.swift in Sources */,
 				14364CBA1BEDA10200FECE58 /* Session+links.swift in Sources */,
@@ -1892,6 +1904,7 @@
 				14364CD51BEDA10300FECE58 /* Session+subreddits.swift in Sources */,
 				14364D091BEDA10F00FECE58 /* Response.swift in Sources */,
 				14364D001BEDA10F00FECE58 /* Comment.swift in Sources */,
+				BEE5BF791E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14437BB41D657D3D00DAAAA8 /* MiniKeychain.swift in Sources */,
 				14364CA71BEDA0E700FECE58 /* GTMNSString+HTML.m in Sources */,
 				14364CFA1BEDA10F00FECE58 /* Config.swift in Sources */,
@@ -1922,6 +1935,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEE5BF7D1E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				143FF1781BFC1DC2001AE88F /* FrontCollectionViewController.swift in Sources */,
 				143FF1701BFC1AD2001AE88F /* UZCursorView.m in Sources */,
 				143FF1791BFC38F4001AE88F /* CellContent.swift in Sources */,
@@ -1983,7 +1997,7 @@
 				141B91C81B0A4FF900A9E6A6 /* Session+multireddit.swift in Sources */,
 				141B91BC1B0A4F9B00A9E6A6 /* Session+links.swift in Sources */,
 				14437BB01D657D1000DAAAA8 /* MiniKeychain.swift in Sources */,
-				BEE5BF701E12D8D900E3C9AE /* MiniKeychain.swift in Sources */,
+				BEE5BF761E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14395C051BAF96E700726263 /* Session+Token.swift in Sources */,
 				147868B21BF41DFE00D493B5 /* User.swift in Sources */,
 				14F134EB1D03EC0900EF7ADB /* NSURLRequest+reddift.swift in Sources */,
@@ -2056,6 +2070,7 @@
 				14A352081B1BA62F003239F8 /* UsersTest.swift in Sources */,
 				14B5EC611AF4B9D60065BC5E /* ParseResponseObjectTest.swift in Sources */,
 				14437BB21D657D3C00DAAAA8 /* MiniKeychain.swift in Sources */,
+				BEE5BF771E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				141B91D31B0A503400A9E6A6 /* Session+CAPTCHA.swift in Sources */,
 				141B91DC1B0A503400A9E6A6 /* Session+multireddit.swift in Sources */,
 				14EBEE991C7FF090001A9F35 /* MoreChildrenTest.swift in Sources */,
@@ -2096,6 +2111,7 @@
 				14B5EBD31AF34E920065BC5E /* AppDelegate.swift in Sources */,
 				14B5EC001AF35B620065BC5E /* ProfileViewController.swift in Sources */,
 				143427C01AF5AB4E005D0E31 /* BaseLinkViewController.swift in Sources */,
+				BEE5BF7C1E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14B5EC5C1AF410740065BC5E /* UZTextView.m in Sources */,
 				143427C41AF745E0005D0E31 /* BaseSubredditsViewController.swift in Sources */,
 				143427C61AF74E91005D0E31 /* SearchSubredditsViewController.swift in Sources */,
@@ -2120,6 +2136,7 @@
 				141B91E21B0A503400A9E6A6 /* Session+CAPTCHA.swift in Sources */,
 				141B91E71B0A503400A9E6A6 /* Session+liveThreads.swift in Sources */,
 				141B91ED1B0A503400A9E6A6 /* Session+subreddits.swift in Sources */,
+				BEE5BF7A1E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14437BB51D657D3E00DAAAA8 /* MiniKeychain.swift in Sources */,
 				14F812471AF9F6BA008F6F3C /* NSURLComponents+reddift.swift in Sources */,
 				14B121701BAA56D800238059 /* Dictionary+reddift.swift in Sources */,
@@ -2231,6 +2248,7 @@
 				14A352091B1BA62F003239F8 /* UsersTest.swift in Sources */,
 				141B91FA1B0A503500A9E6A6 /* Session+multireddit.swift in Sources */,
 				14437BB61D657D3F00DAAAA8 /* MiniKeychain.swift in Sources */,
+				BEE5BF7B1E14272800E3C9AE /* MiniKeychain.swift in Sources */,
 				14F8123F1AF9F6B6008F6F3C /* More.swift in Sources */,
 				141B91FE1B0A503500A9E6A6 /* Session+wiki.swift in Sources */,
 				14EBEE9B1C7FF090001A9F35 /* MoreChildrenTest.swift in Sources */,
