@@ -200,7 +200,7 @@ public struct Link: Thing {
      the link of this post.  the permalink if this is a self-post
      example: http://www.reddit.com/r/redditdev/comments/32wnhw/praw_comment_stream_messes_up_when_getting/
      */
-    public let url: String
+    public let url: URL?
     /**
      the text of the author's flair.  subreddit specific
      example:
@@ -272,7 +272,7 @@ public struct Link: Thing {
         permalink = ""
         stickied = false
         created = 0
-        url = ""
+        url = URL.init(string: "")
         authorFlairText = ""
         title = ""
         createdUtc = 0
@@ -339,7 +339,7 @@ public struct Link: Thing {
         created = data["created"] as? Int ?? 0
         
         let tempUrl = data["url"] as? String ?? ""
-        url = tempUrl.gtm_stringByUnescapingFromHTML()
+        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML())
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
