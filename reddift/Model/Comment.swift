@@ -31,6 +31,20 @@ public func extendAllReplies(in comment: Thing, current depth: Int) -> ([(Thing,
     return buf
 }
 
+public func extendAllRepliesKeepMore(in comment: Thing, current depth: Int) -> ([(Thing, Int)]) {
+    var buf: [(Thing, Int)] = []
+    
+    if let comment = comment as? Comment {
+        buf.append((comment, depth))
+        for obj in comment.replies.children {
+            buf.append(contentsOf: extendAllReplies(in: obj, current:depth + 1))
+        }
+    } else if let more = comment as? More {
+        buf.append((more, depth))
+    }
+    return buf
+}
+
 /**
 Comment object.
 */
