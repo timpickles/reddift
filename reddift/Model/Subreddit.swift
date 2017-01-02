@@ -29,6 +29,8 @@ public struct Subreddit: SubredditURLPath, Thing {
     example:
     */
     public let bannerImg: String
+    public let keyColor: String
+
     /**
     
     example: true
@@ -395,6 +397,7 @@ public struct Subreddit: SubredditURLPath, Thing {
         submitTextLabel = ""
         userIsModerator = false
         created = 0
+        keyColor = ""
         url = ""
         hideAds = false
         createdUtc = 0
@@ -434,6 +437,7 @@ public struct Subreddit: SubredditURLPath, Thing {
         subscribers = 0
         submitTextLabel = ""
         userIsModerator = false
+        keyColor = ""
         created = 0
         url = ""
         hideAds = false
@@ -472,6 +476,7 @@ public struct Subreddit: SubredditURLPath, Thing {
         publicDescriptionHtml = tempPublicDescriptionHtml.gtm_stringByUnescapingFromHTML()
         iconSize = data["icon_size"] as? [Int] ?? []
         iconImg = data["icon_img"] as? String ?? ""
+        keyColor = data["key_color"] as? String ?? ""
         headerTitle = data["header_title"] as? String ?? ""
         let tempDescription = data["description"] as? String ?? ""
         description = tempDescription.gtm_stringByUnescapingFromHTML()
