@@ -155,6 +155,8 @@ public enum LinkSortType {
     case hot
     case new
     
+    static let cases: [LinkSortType] = [.controversial, .top, .hot, .new]
+
     public var path: String {
         switch self {
         case .controversial:
