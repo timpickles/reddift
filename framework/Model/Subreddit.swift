@@ -430,7 +430,11 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
     public let quarantine: Bool
     
     public var path: String {
-        return "/r/\(displayName)"
+        var p = "/r/\(displayName)"
+        if(displayName == "frontpage"){
+            p = ""
+        }
+        return p
     }
     
     public init(subreddit: String) {
