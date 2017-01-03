@@ -366,7 +366,11 @@ public struct Subreddit: SubredditURLPath, Thing {
     public let userIsSubscriber: Bool
     
     public var path: String {
-        return "/r/\(displayName)"
+        var p = "/r/\(displayName)"
+        if(displayName == "frontpage"){
+            p = ""
+        }
+        return p
     }
     
     public init(subreddit: String) {
