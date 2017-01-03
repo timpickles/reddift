@@ -108,7 +108,7 @@ public enum TimeFilterWithin {
 	/// All contents
 	case all
     
-    static let cases: [TimeFilterWithin] = [.hour, .day, .week, .month, .year, .all]
+    public static let cases: [TimeFilterWithin] = [.hour, .day, .week, .month, .year, .all]
 	
 	/// String for URL parameter
 	public var param: String {
@@ -155,7 +155,7 @@ public enum LinkSortType {
     case hot
     case new
     
-    static let cases: [LinkSortType] = [.controversial, .top, .hot, .new]
+    public static let cases: [LinkSortType] = [.controversial, .top, .hot, .new]
 
     public var path: String {
         switch self {
