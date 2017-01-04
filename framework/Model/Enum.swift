@@ -315,7 +315,7 @@ public enum UserContent {
 	case saved
 	case gilded
     
-    static let cases: [UserContent] = [.overview, .submitted, .comments, .liked, .disliked, .hidden, .saved, .gilded]
+    public static let cases: [UserContent] = [.overview, .submitted, .comments, .liked, .disliked, .hidden, .saved, .gilded]
 	
 	var path: String {
 		switch self {
