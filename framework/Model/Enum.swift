@@ -337,6 +337,27 @@ public enum UserContent {
 			return "/glided"
 		}
 	}
+    
+    public var title: String {
+        switch self{
+        case .overview:
+            return "Overview"
+        case .submitted:
+            return "Submitted"
+        case .comments:
+            return "Comments"
+        case .liked:
+            return "Liked"
+        case .disliked:
+            return "Disliked"
+        case .hidden:
+            return "Hidden"
+        case .saved:
+            return "Saved"
+        case .gilded:
+            return "Glided"
+        }
+    }
 }
 
 /**
