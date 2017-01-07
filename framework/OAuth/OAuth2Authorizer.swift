@@ -78,6 +78,7 @@ public class OAuth2Authorizer {
     public func receiveRedirect(_ url: URL, completion: @escaping (Result<OAuth2Token>) -> Void) -> Bool {
         var parameters: [String:String] = url.getKeyVals()!
         let currentState = self.state
+        print("Current state is \(currentState)")
         self.state = ""
         if let code = parameters["code"], let state = parameters["state"]?.replacingOccurrences(of: "%3D", with: "=") {
             if code.characters.count > 0 && state == currentState {
