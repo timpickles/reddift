@@ -267,7 +267,7 @@ public struct Comment: Thing, Created, Votable {
         subreddit = link.subreddit
         scoreHidden = false
         created = link.created
-        submissionTitle = []
+        submissionTitle = ""
         authorFlairText = link.authorFlairText
         createdUtc = link.createdUtc
         distinguished = link.distinguished
