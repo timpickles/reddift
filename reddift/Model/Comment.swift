@@ -61,6 +61,8 @@ public struct Comment: Thing {
     example: t5_2qizd
     */
     public let subredditId: String
+    
+    public let submissionTitle: String
     /**
     example:
     */
@@ -216,6 +218,7 @@ public struct Comment: Thing {
         controversiality = 0
         body = ""
         edited = false
+        submissionTitle = ""
         authorFlairCssClass = ""
         downs = 0
         bodyHtml = ""
@@ -257,6 +260,7 @@ public struct Comment: Thing {
         subreddit = link.subreddit
         scoreHidden = false
         created = link.created
+        submissionTitle = []
         authorFlairText = link.authorFlairText
         createdUtc = link.createdUtc
         distinguished = link.distinguished
@@ -292,6 +296,7 @@ public struct Comment: Thing {
         approvedBy = data["approved_by"] as? String ?? ""
         controversiality = data["controversiality"] as? Int ?? 0
         body = data["body"] as? String ?? ""
+        submissionTitle = data["link_title"] as? String ?? ""
         edited = data["edited"] as? Bool ?? false
         authorFlairCssClass = data["author_flair_css_class"] as? String ?? ""
         downs = data["downs"] as? Int ?? 0
