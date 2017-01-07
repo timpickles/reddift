@@ -80,7 +80,7 @@ public class OAuth2Authorizer {
         let currentState = self.state
         print("Current state is \(currentState)")
         self.state = ""
-        if let code = parameters["code"], let state = parameters["state"]?.replacingOccurrences(of: "%3D", with: "=") {
+        if let code = parameters["code"], let state = parameters["state"]?.decodeUrl() {
             if code.characters.count > 0 && state == currentState {
                 do {
                     try OAuth2Token.getOAuth2Token(code, completion: completion)
@@ -108,5 +108,16 @@ extension URL {
             
         }
         return results
+    }
+}
+extension String
+{
+    func encodeUrl() -> String
+    {
+        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    func decodeUrl() -> String
+    {
+        return self.removingPercentEncoding!
     }
 }
