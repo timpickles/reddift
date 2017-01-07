@@ -79,7 +79,7 @@ public class OAuth2Authorizer {
         var parameters: [String:String] = url.getKeyVals()!
         let currentState = self.state
         self.state = ""
-        if let code = parameters["code"], let state = parameters["state"] {
+        if let code = parameters["code"], let state = parameters["state"]?.replacingOccurrences(of: "%3D", with: "=") {
             if code.characters.count > 0 && state == currentState {
                 do {
                     try OAuth2Token.getOAuth2Token(code, completion: completion)
