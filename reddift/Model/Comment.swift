@@ -170,7 +170,7 @@ public struct Comment: Thing {
     /**
     example:
     */
-    public let distinguished: Bool
+    public let distinguished: String
     /**
     example: []
     */
@@ -227,7 +227,7 @@ public struct Comment: Thing {
         created = 0
         authorFlairText = ""
         createdUtc = 0
-        distinguished = false
+        distinguished = ""
         modReports = []
         numReports = 0
         ups = 0
@@ -263,7 +263,7 @@ public struct Comment: Thing {
         submissionTitle = ""
         authorFlairText = link.authorFlairText
         createdUtc = link.createdUtc
-        distinguished = link.distinguished
+        distinguished = ""
         modReports = link.modReports
         numReports = link.numReports
         ups = link.ups
@@ -308,7 +308,7 @@ public struct Comment: Thing {
         created = data["created"] as? Int ?? 0
         authorFlairText = data["author_flair_text"] as? String ?? ""
         createdUtc = data["created_utc"] as? Int ?? 0
-        distinguished = data["distinguished"] as? Bool ?? false
+        distinguished = data["distinguished"] as? String ?? ""
         modReports = []
         numReports = data["num_reports"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
