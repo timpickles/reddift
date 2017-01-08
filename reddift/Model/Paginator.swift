@@ -21,6 +21,10 @@ public struct Paginator {
         self.before = ""
         self.modhash = ""
     }
+    
+    public func hasMore() -> Bool {
+        return !(after == nil || after.isEmpty)
+    }
 	
     public init(after: String, before: String, modhash: String) {
 		self.after = after
