@@ -270,7 +270,7 @@ public struct Comment: Thing, Created, Votable {
         submissionTitle = ""
         authorFlairText = link.authorFlairText
         createdUtc = link.createdUtc
-        distinguished = link.distinguished
+        distinguished = ""
         modReports = link.modReports
         numReports = link.numReports
         ups = link.ups
