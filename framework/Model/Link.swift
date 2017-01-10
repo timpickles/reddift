@@ -98,6 +98,7 @@ public struct Link: Thing, Created, Votable {
      example: false
      */
     public let archived: Bool
+    public let locked: Bool
     /**
      probably always returns false
      example: false
@@ -256,6 +257,7 @@ public struct Link: Thing, Created, Votable {
         linkFlairText = ""
         gilded = 0
         archived = false
+        locked = false
         clicked = false
         author = ""
         numComments = 0
@@ -321,6 +323,7 @@ public struct Link: Thing, Created, Votable {
         linkFlairText = data["link_flair_text"] as? String ?? ""
         gilded = data["gilded"] as? Int ?? 0
         archived = data["archived"] as? Bool ?? false
+        locked = data["locked"] as? Bool ?? false
         clicked = data["clicked"] as? Bool ?? false
         author = data["author"] as? String ?? ""
         numComments = data["num_comments"] as? Int ?? 0
