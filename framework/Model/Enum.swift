@@ -154,8 +154,9 @@ public enum LinkSortType {
     case top
     case hot
     case new
+    case rising
     
-    public static let cases: [LinkSortType] = [.controversial, .top, .hot, .new]
+    public static let cases: [LinkSortType] = [.controversial, .top, .hot, .new, .rising]
 
     public var path: String {
         switch self {
@@ -167,6 +168,8 @@ public enum LinkSortType {
             return "/hot"
         case .new:
             return "/new"
+        case .rising:
+            return "/rising"
         }
     }
     
@@ -180,6 +183,8 @@ public enum LinkSortType {
             return "Sort by Hot"
         case .new:
             return "Sort by New"
+        case .rising:
+            return "Sort by Rising"
         }
     }
 }
