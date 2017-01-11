@@ -21,6 +21,8 @@ public enum CommentSort {
 	case random
 	case qa
 	
+    public static let cases: [CommentSort] = [.confidence, .top, .new, .hot, .controversial, .old]
+
 	/**
 	Returns string to create a path of URL.
 	*/
