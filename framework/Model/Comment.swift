@@ -80,7 +80,7 @@ public struct Comment: Thing, Created, Votable {
     /**
     example: {"kind"=>"Listing", "data"=>{"modhash"=>nil, "children"=>[{"kind"=>"more", "data"=>{"count"=>0, "parent_id"=>"t1_cqfhkcb", "children"=>["cqfmmpp"], "name"=>"t1_cqfmmpp", "id"=>"cqfmmpp"}}], "after"=>nil, "before"=>nil}}
     */
-    public let replies: Listing
+    public var replies: Listing
     /**
     example: []
     */
