@@ -98,6 +98,8 @@ public struct Comment: Thing, Created, Votable {
     example: false
     */
     public let archived: Bool
+ 
+    public let stickied: Bool
     /**
     example:
     */
@@ -222,6 +224,7 @@ public struct Comment: Thing, Created, Votable {
         score = 0
         approvedBy = ""
         controversiality = 0
+        stickied = false
         body = ""
         edited = false
         submissionTitle = ""
@@ -257,6 +260,7 @@ public struct Comment: Thing, Created, Votable {
         author = link.author
         parentId = ""
         score = link.score
+        stickied = false
         approvedBy = link.approvedBy
         controversiality = 0
         body = link.selftext
@@ -295,6 +299,7 @@ public struct Comment: Thing, Created, Votable {
         }
         userReports = []
         saved = data["saved"] as? Bool ?? false
+        stickied = data["stickied"] as? Bool ?? false
         gilded = data["gilded"] as? Int ?? 0
         archived = data["archived"] as? Bool ?? false
         reportReasons = []
