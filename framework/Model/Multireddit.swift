@@ -104,7 +104,7 @@ public struct Multireddit: SubredditURLPath, Created {
         self.subreddits = []
         self.weightingScheme = MultiredditWeightingScheme("")
         self.descriptionHtml = ""
-        self.path = "/u/" + user + "/m/" + name
+        self.path = "/user/" + user + "/m/" + name
         self.name = name
         self.iconUrl = ""
         self.canEdit = false
