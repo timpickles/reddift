@@ -333,7 +333,7 @@ public struct Link: Thing, Created, Votable {
         hidden = data["hidden"] as? Bool ?? false
         thumbnail = convertObjectToEscapedURLString(data["thumbnail"])
         subredditId = data["subreddit_id"] as? String ?? ""
-        edited = data["edited"] as? Int ?? false
+        edited = data["edited"] as? Int ?? 0
         linkFlairCssClass = data["link_flair_css_class"] as? String ?? ""
         authorFlairCssClass = data["author_flair_css_class"] as? String ?? ""
         downs = data["downs"] as? Int ?? 0
