@@ -20,7 +20,7 @@ enum PrivateLinkSortBy {
         case .controversial:
             return "/controversial"
         case .top:
-            return "/hot"
+            return "/top"
         }
     }
 }
