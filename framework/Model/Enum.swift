@@ -306,11 +306,15 @@ public enum MessageWhere {
 	public var  description: String {
 		switch self {
 		case .inbox:
-			return "inbox"
+			return "Inbox"
 		case .unread:
-			return "unread"
+			return "Unread"
 		case .sent:
-			return "sent"
+			return "Sent"
+        case .messages:
+            return "Messages"
+        case .mentions:
+            return "Mentions"
 		}
 	}
 }
