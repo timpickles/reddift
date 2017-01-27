@@ -309,13 +309,13 @@ extension Session {
      - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func getMoreChildren(_ children: [String], link: Link, sort: CommentSort, id: String? = nil, completion: @escaping (Result<[Thing]>) -> Void) throws -> URLSessionDataTask {
+    public func getMoreChildren(_ children: [String], name: String, sort: CommentSort, id: String? = nil, completion: @escaping (Result<[Thing]>) -> Void) throws -> URLSessionDataTask {
         let commaSeparatedChildren = children.joined(separator: ",")
         var parameter = [
-            "children": commaSeparatedChildren,
-            "link_id": link.name,
-            "sort": sort.type,
-            "api_type": "json"
+            "children":commaSeparatedChildren,
+            "link_id":name,
+            "sort":sort.type,
+            "api_type":"json"
         ]
         if let id = id {
             parameter["id"] = id
