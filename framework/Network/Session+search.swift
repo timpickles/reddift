@@ -29,6 +29,9 @@ extension Session {
             path = subreddit.path + "/search"
             restrict = true
         }
+        if(subreddit != nil && subreddit!.displayName == "all"){
+            restrict = false
+        }
         
         let parameter = paginator.dictionaryByAdding(parameters: ["q":query, "sort":sort.path, "restrict_sr": restrict ? "yes" : "no"])
         
