@@ -95,7 +95,7 @@ extension Session {
      */
     @discardableResult
     public func getMultireddit(_ multi: Multireddit, completion: @escaping (Result<Multireddit>) -> Void) throws -> URLSessionDataTask {
-        let parameter = ["multipath":multi.path, "expand_srs":"true"]
+        let parameter = ["multipath":multi.path, "expand_srs":"false"]
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/multi" + multi.path, parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Multireddit> in
