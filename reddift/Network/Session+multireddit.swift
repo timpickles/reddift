@@ -96,7 +96,7 @@ extension Session {
     @discardableResult
     public func getMultireddit(_ multi: Multireddit, completion: @escaping (Result<[Multireddit]>) -> Void) throws -> URLSessionDataTask {
         let parameter = ["multipath":multi.path, "expand_srs":"true"]
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/multi/" + multi.path, parameter:parameter, method:"GET", token:token)
+        guard let request = URLRequest.requestForOAuth(with: "https://www.reddit.com", path:"/api/multi" + multi.path, parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[Multireddit]> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
@@ -117,7 +117,7 @@ extension Session {
      */
     @discardableResult
     public func deleteMultireddit(_ multi: Multireddit, completion: @escaping (Result<String>) -> Void) throws -> URLSessionDataTask {
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/multi/" + multi.path, method:"DELETE", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/multi" + multi.path, method:"DELETE", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<String> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
