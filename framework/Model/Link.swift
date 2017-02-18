@@ -285,8 +285,12 @@ public struct Link: Thing, Created, Votable {
         upvoteRatio = 0
         visited = false
         numReports = 0
+<<<<<<< HEAD:framework/Model/Link.swift
         distinguished = .none
         baseJson = json
+=======
+        distinguished = ""
+>>>>>>> Update Link.swift:reddift/Model/Link.swift
         media = Media(json: [:])
         mediaEmbed = MediaEmbed(json: [:])
         
