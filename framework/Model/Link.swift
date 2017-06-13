@@ -285,12 +285,8 @@ public struct Link: Thing, Created, Votable {
         upvoteRatio = 0
         visited = false
         numReports = 0
-<<<<<<< HEAD:framework/Model/Link.swift
         distinguished = .none
         baseJson = json
-=======
-        distinguished = ""
->>>>>>> Update Link.swift:reddift/Model/Link.swift
         media = Media(json: [:])
         mediaEmbed = MediaEmbed(json: [:])
         
@@ -350,11 +346,12 @@ public struct Link: Thing, Created, Votable {
         created = data["created"] as? Int ?? 0
         
         let tempUrl = data["url"] as? String ?? ""
-        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML())
+        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML().gtm_stringByEscapingForAsciiHTML())
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
-        title = tempTitle.unescapeHTML
+        title = tempTitle.gtm_stringByUnescapingFromHTML()
+
         createdUtc = data["created_utc"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
         upvoteRatio = data["upvote_ratio"] as? Double ?? 0
