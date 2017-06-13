@@ -341,8 +341,11 @@ public struct Link: Thing {
         stickied = data["stickied"] as? Bool ?? false
         created = data["created"] as? Int ?? 0
         
-        let tempUrl = data["url"] as? String ?? ""
-        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML().gtm_stringByEscapingForAsciiHTML())
+        var tempUrl = data["url"] as? String ?? ""
+        if(tempUrl.contains("&eacute;")){
+            tempUrl = tempUrl.replacingOccurrences(of: "&eacute;", with: "é") //Find something better, as more edge cases may exist
+        }
+        url = URL.init(string:tempUrl.gtm_stringByEscapingForAsciiHTML())
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
