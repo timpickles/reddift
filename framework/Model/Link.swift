@@ -346,10 +346,8 @@ public struct Link: Thing, Created, Votable {
         created = data["created"] as? Int ?? 0
         
         var tempUrl = data["url"] as? String ?? ""
-        if(tempUrl.contains("&eacute;")){
-            tempUrl = tempUrl.replacingOccurrences(of: "&eacute;", with: "é") //Find something better, as more edge cases may exist
-        }
-        url = URL.init(string:tempUrl.gtm_stringByEscapingForAsciiHTML())
+        tempUrl = tempUrl.gtm_stringByEscapingForHTML()
+        url = URL.init(string: tempUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
