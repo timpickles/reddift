@@ -78,7 +78,6 @@ static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
   { @"&Ccedil;", 199 }, 
   { @"&Egrave;", 200 }, 
   { @"&Eacute;", 201 },
-  { @"&eacute;", 201 },
   { @"&Ecirc;", 202 },
   { @"&Euml;", 203 }, 
   { @"&Igrave;", 204 }, 
