@@ -342,11 +342,12 @@ public struct Link: Thing {
         created = data["created"] as? Int ?? 0
         
         let tempUrl = data["url"] as? String ?? ""
-        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML())
+        url = URL.init(string:tempUrl.gtm_stringByUnescapingFromHTML().gtm_stringByEscapingForAsciiHTML())
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
         title = tempTitle.gtm_stringByUnescapingFromHTML()
+
         createdUtc = data["created_utc"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
         upvoteRatio = data["upvote_ratio"] as? Double ?? 0
