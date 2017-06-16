@@ -320,7 +320,10 @@ public struct Link: Thing, Created, Votable {
         } else {
             likes = .none
         }
-        linkFlairText = data["link_flair_text"] as? String ?? ""
+        
+        let tempFlair = data["link_flair_text"] as? String ?? ""
+        linkFlairText = tempFlair.gtm_stringByUnescapingFromHTML()
+        
         gilded = data["gilded"] as? Int ?? 0
         archived = data["archived"] as? Bool ?? false
         locked = data["locked"] as? Bool ?? false
