@@ -57,7 +57,7 @@ extension Session {
             let commaSeparatedIDString = comments.joined(separator: ",")
             parameter["comment"] = commaSeparatedIDString
         }
-        parameter["context"] = "\(context)"
+        parameter["context"] = "\(context!)"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/comments/" + id + ".json", parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<(Listing, Listing)> in
