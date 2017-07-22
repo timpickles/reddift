@@ -116,7 +116,11 @@ extension Session {
         let parameter = paginator.dictionaryByAdding(parameters: [
             "limit"    : "\(limit)",
             "show"     : "all",
-//          "sr_detail": "true",
+            "always_show_media" : "1",
+            "feature" : "link_preview",
+            "from_detail" : "true",
+            "expand_srs" : "true",
+            "sr_detail": "true",
             "t"        : timeFilterWithin.param
         ])
         var path = "\(privateSortType.path).json"
