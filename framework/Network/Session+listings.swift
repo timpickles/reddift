@@ -115,10 +115,14 @@ extension Session {
     @discardableResult
     func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, privateSortType: LinkSortType, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
-            "limit": "\(limit)",
-            "show": "all",
-//          "sr_detail": "true",
-            "t": timeFilterWithin.param
+            "limit"    : "\(limit)",
+            "show"     : "all",
+            "always_show_media" : "1",
+            "feature" : "link_preview",
+            "from_detail" : "true",
+            "expand_srs" : "true",
+            "sr_detail": "true",
+            "t"        : timeFilterWithin.param
         ])
         var path = "\(privateSortType.path).json"
         if let subreddit = subreddit { path = "\(subreddit.path)\(privateSortType.path).json" }
