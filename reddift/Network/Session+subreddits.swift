@@ -90,7 +90,7 @@ extension Session {
         }
         return executeTask(request, handleResponse: closure, completion: completion)
     }
-     
+    
     /**
      Return information about the subreddit.
      - parameter subredditName: Subreddit's name.
@@ -101,7 +101,7 @@ extension Session {
     public func about(_ subredditName: String, completion: @escaping (Result<Subreddit>) -> Void) throws -> URLSessionDataTask {
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/r/\(subredditName)/about.json", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
-
+        
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Subreddit> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
                 .flatMap(response2Data)
@@ -178,9 +178,9 @@ extension Session {
             "count"    : "\(count)",
             "limit"    : "\(limit)",
             "show"     : "all",
-//          "sr_detail": "true",
-//          "user"     :"username"
-            ]
+            //          "sr_detail": "true",
+            //          "user"     :"username"
+        ]
         let path = "/r/\(subreddit.displayName)/about/\(aboutWhere.rawValue)"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
@@ -195,26 +195,26 @@ extension Session {
     }
     
     @discardableResult
-    public func flairList(_ subreddit: Subreddit, id: String = "", name: String = "", completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
+    public func flairList(_ subreddit: String, link: String = "", name: String = "", completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
         
         var parameter = [
-            "link"    : "\(id)",
-            "name"    : "\(limit)",
+            "link"    : "\(link)",
+            "name"    : "\(name)",
         ]
         
         if(link.isEmpty && name.isEmpty){
-            parameter = []
+            parameter = [:]
         } else if(link.isEmpty && !name.isEmpty){
             parameter = [
-                "name"    : "\(limit)",
+                "name"    : "\(name)",
             ]
         } else if(!link.isEmpty && name.isEmpty){
             parameter = [
-                "link"    : "\(id)",
+                "link"    : "\(link)",
             ]
         }
         
-        let path = "/r/\(subreddit.displayName)/api/flairselector"
+        let path = "/r/\(subreddit)/api/flairselector"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[FlairTemplate]> in
@@ -227,11 +227,11 @@ extension Session {
         return executeTask(request, handleResponse: closure, completion: completion)
     }
     /**
-    Subscribe to or unsubscribe from a subreddit. The user must have access to the subreddit to be able to subscribe to it.
-    - parameter subreddit: Subreddit obect to be subscribed/unsubscribed
-    - parameter subscribe: If you want to subscribe it, set true.
-    - parameter completion: The completion handler to call when the load request is complete.
-    - returns: Data task which requests search to reddit.com.
+     Subscribe to or unsubscribe from a subreddit. The user must have access to the subreddit to be able to subscribe to it.
+     - parameter subreddit: Subreddit obect to be subscribed/unsubscribed
+     - parameter subscribe: If you want to subscribe it, set true.
+     - parameter completion: The completion handler to call when the load request is complete.
+     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
     public func setSubscribeSubreddit(_ subreddit: Subreddit, subscribe: Bool, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
@@ -245,12 +245,12 @@ extension Session {
     /**
      Get all subreddits.
      The where parameter chooses the order in which the subreddits are displayed.
-     popular sorts on the activity of the subreddit and the position of the subreddits can shift around. 
+     popular sorts on the activity of the subreddit and the position of the subreddits can shift around.
      new sorts the subreddits based on their creation date, newest first.
-    - parameter subredditsWhere: Chooses the order in which the subreddits are displayed among SubredditsWhere.
-    - parameter paginator: Paginator object for paging.
-    - parameter completion: The completion handler to call when the load request is complete.
-    - returns: Data task which requests search to reddit.com.
+     - parameter subredditsWhere: Chooses the order in which the subreddits are displayed among SubredditsWhere.
+     - parameter paginator: Paginator object for paging.
+     - parameter completion: The completion handler to call when the load request is complete.
+     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
     public func getSubreddit(_ subredditWhere: SubredditsWhere, paginator: Paginator?, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
@@ -274,16 +274,16 @@ extension Session {
     }
     
     /**
-    Get subreddits the user has a relationship with. The where parameter chooses which subreddits are returned as follows:
-    
-    - subscriber - subreddits the user is subscribed to
-    - contributor - subreddits the user is an approved submitter in
-    - moderator - subreddits the user is a moderator of
-    
-    - parameter mine: The type of relationship with the user as SubredditsMineWhere.
-    - parameter paginator: Paginator object for paging contents.
-    - parameter completion: The completion handler to call when the load request is complete.
-    - returns: Data task which requests search to reddit.com.
+     Get subreddits the user has a relationship with. The where parameter chooses which subreddits are returned as follows:
+     
+     - subscriber - subreddits the user is subscribed to
+     - contributor - subreddits the user is an approved submitter in
+     - moderator - subreddits the user is a moderator of
+     
+     - parameter mine: The type of relationship with the user as SubredditsMineWhere.
+     - parameter paginator: Paginator object for paging contents.
+     - parameter completion: The completion handler to call when the load request is complete.
+     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
     public func getUserRelatedSubreddit(_ mine: SubredditsMineWhere, paginator: Paginator, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
@@ -300,12 +300,12 @@ extension Session {
     }
     
     /**
-    Search subreddits by title and description.
-    
-    - parameter query: The search keywords, must be less than 512 characters.
-    - parameter paginator: Paginator object for paging.
-    - parameter completion: The completion handler to call when the load request is complete.
-    - returns: Data task which requests search to reddit.com.
+     Search subreddits by title and description.
+     
+     - parameter query: The search keywords, must be less than 512 characters.
+     - parameter paginator: Paginator object for paging.
+     - parameter completion: The completion handler to call when the load request is complete.
+     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
     public func getSubredditSearch(_ query: String, paginator: Paginator, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
@@ -321,7 +321,7 @@ extension Session {
         }
         return executeTask(request, handleResponse: closure, completion: completion)
     }
-        
+    
     /**
      Search subreddits by title and description.
      
@@ -347,7 +347,7 @@ extension Session {
     }
     
     /**
-    DOES NOT WORK... WHY?
+     DOES NOT WORK... WHY?
      */
     @discardableResult
     public func getSticky(_ subreddit: Subreddit, completion: @escaping (Result<RedditAny>) -> Void) throws -> URLSessionDataTask {
