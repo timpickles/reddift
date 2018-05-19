@@ -194,6 +194,38 @@ extension Session {
         return executeTask(request, handleResponse: closure, completion: completion)
     }
     
+    @discardableResult
+    public func flairList(_ subreddit: Subreddit, id: String = "", name: String = "", completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
+        
+        var parameter = [
+            "link"    : "\(id)",
+            "name"    : "\(limit)",
+        ]
+        
+        if(link.isEmpty && name.isEmpty){
+            parameter = []
+        } else if(link.isEmpty && !name.isEmpty){
+            parameter = [
+                "name"    : "\(limit)",
+            ]
+        } else if(!link.isEmpty && name.isEmpty){
+            parameter = [
+                "link"    : "\(id)",
+            ]
+        }
+        
+        let path = "/r/\(subreddit.displayName)/api/flairselector"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[FlairTemplate]> in
+            return Result(from: Response(data: data, urlResponse: response), optional:error)
+                .flatMap(response2Data)
+                .flatMap(data2Json)
+                .flatMap(json2RedditAny)
+                .flatMap(redditAny2Object)
+        }
+        return executeTask(request, handleResponse: closure, completion: completion)
+    }
     /**
     Subscribe to or unsubscribe from a subreddit. The user must have access to the subreddit to be able to subscribe to it.
     - parameter subreddit: Subreddit obect to be subscribed/unsubscribed
