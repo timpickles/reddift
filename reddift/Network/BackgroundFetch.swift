@@ -25,8 +25,8 @@ public class BackgroundFetch: NSObject, URLSessionDelegate {
         taskHandler = aTaskHandler
         request = aRequest
         super.init()
-        taskURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "com.sonson.reddift.profile"), delegate: self, delegateQueue: nil)
-        tokenURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "com.sonson.reddift.token"), delegate: self, delegateQueue: nil)
+        taskURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "me.ccrama.profile"), delegate: self, delegateQueue: nil)
+        tokenURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "me.ccrama.token"), delegate: self, delegateQueue: nil)
     }
     
     public func resume() {
