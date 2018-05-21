@@ -29,6 +29,11 @@ public class BackgroundFetch: NSObject, URLSessionDownloadDelegate {
         tokenURLSession = URLSession(configuration: URLSessionConfiguration.background(withIdentifier: "tokenMSG"), delegate: self, delegateQueue: nil)
     }
     
+    deinit {
+        taskURLSession?.finishTasksAndInvalidate()
+        tokenURLSession?.finishTasksAndInvalidate()
+    }
+    
     public func resume() {
         guard let taskURLSession = self.taskURLSession else { return }
         taskURLSession.downloadTask(with: request).resume()
