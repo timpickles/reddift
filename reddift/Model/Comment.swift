@@ -88,6 +88,9 @@ public struct Comment: Thing {
     true if this post is saved by the logged in user
     example: false
     */
+
+    public let canMod: Bool
+
     public let saved: Bool
     /**
     example: 0
@@ -220,6 +223,7 @@ public struct Comment: Thing {
         controversiality = 0
         stickied = false
         body = ""
+        canMod = false
         edited = 0
         submissionTitle = ""
         authorFlairCssClass = ""
@@ -250,6 +254,7 @@ public struct Comment: Thing {
         gilded = link.gilded
         archived = link.archived
         reportReasons = link.reportReasons
+        canMod = false
         author = link.author
         parentId = ""
         score = link.score
@@ -289,12 +294,13 @@ public struct Comment: Thing {
         } else {
             likes = .none
         }
-        userReports = []
+        userReports = data["user_reports"] as? [AnyObject] ?? []
         saved = data["saved"] as? Bool ?? false
         stickied = data["stickied"] as? Bool ?? false
         gilded = data["gilded"] as? Int ?? 0
         archived = data["archived"] as? Bool ?? false
-        reportReasons = []
+        reportReasons = data["report_reasons"] as? [AnyObject] ?? []
+        canMod = data["can_mod_post"] as? Bool ?? false
         author = data["author"] as? String ?? ""
         parentId = data["parent_id"] as? String ?? ""
         score = data["score"] as? Int ?? 0
@@ -314,7 +320,7 @@ public struct Comment: Thing {
         authorFlairText = data["author_flair_text"] as? String ?? ""
         createdUtc = data["created_utc"] as? Int ?? 0
         distinguished = data["distinguished"] as? String ?? ""
-        modReports = []
+        modReports = data["mod_reports"] as? [AnyObject] ?? []
         numReports = data["num_reports"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
         if let temp = data["replies"] as? JSONDictionary {
