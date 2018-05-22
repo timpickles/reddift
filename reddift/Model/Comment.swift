@@ -91,6 +91,8 @@ public struct Comment: Thing {
 
     public let canMod: Bool
 
+    public let baseJson: JSONDictionary
+
     public let saved: Bool
     /**
     example: 0
@@ -238,6 +240,7 @@ public struct Comment: Thing {
         modReports = []
         numReports = 0
         ups = 0
+        baseJson = JSONDictionary()
     }
     
     public init(link: Link) {
@@ -276,6 +279,7 @@ public struct Comment: Thing {
         modReports = link.modReports
         numReports = link.numReports
         ups = link.ups
+        baseJson = link.baseJson
     }
     
     /**
@@ -332,5 +336,6 @@ public struct Comment: Thing {
         } else {
             replies = Listing()
         }
+        baseJson = data
     }
 }
