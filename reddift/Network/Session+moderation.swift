@@ -37,7 +37,7 @@ extension Session {
         if(spam != nil){
             parameter["spam"] = String(spam!)
         }
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/approve", parameter:parameter, method:"POST", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/remove", parameter:parameter, method:"POST", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
     }
