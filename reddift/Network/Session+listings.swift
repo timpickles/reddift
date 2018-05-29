@@ -140,7 +140,7 @@ extension Session {
     
     
     @discardableResult
-    func getModQueue(_ paginator: Paginator, subreddit: SubredditURLPath?, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
+    public func getModQueue(_ paginator: Paginator, subreddit: SubredditURLPath?, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
             "limit"    : "\(limit)",
             "show"     : "all",
