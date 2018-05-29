@@ -39,6 +39,29 @@ extension Session {
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
     }
 
+    @discardableResult
+    public func setNSFW(_ name: String, nsfw : Bool, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        var parameter = ["id":name]
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: nsfw ? "/api/marknsfw" : "/api/unmarknsfw", parameter:parameter, method:"POST", token:token)
+                else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
+
+    @discardableResult
+    public func setSpoiler(_ name: String, spoiler : Bool, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        var parameter = ["id":name]
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: spoiler ? "/api/spoiler" : "/api/unspoiler", parameter:parameter, method:"POST", token:token)
+                else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
+
+    @discardableResult
+    public func setLocked(_ name: String, locked : Bool, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        var parameter = ["id":name]
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: locked ? "/api/lock" : "/api/unlock", parameter:parameter, method:"POST", token:token)
+                else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
 
     @discardableResult
     public func remove(_ name: String, spam: Bool? = nil, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
