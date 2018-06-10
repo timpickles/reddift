@@ -51,7 +51,7 @@ extension NSParagraphStyle {
 #endif
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .left
-        paragraphStyle.maximumLineHeight = fontSize + 2
+        paragraphStyle.maximumLineHeight = fontSize + 10
         paragraphStyle.minimumLineHeight = fontSize + 2
         paragraphStyle.lineSpacing = 1
         paragraphStyle.paragraphSpacing = 1
@@ -167,12 +167,28 @@ extension NSAttributedString {
      */
     private func __reconstruct(with normalFont: _Font, color: _Color, linkColor: _Color, codeBackgroundColor: _Color) -> NSAttributedString {
         let attributes = self.attributesForReddift
-        let (italicFont, boldFont, codeFont, superscriptFont, _) = createDerivativeFonts(normalFont)
+        let (italicFont, boldFont, codeFont, superscriptFont, paragraphStyle) = createDerivativeFonts(normalFont)
         
-        let output = NSMutableAttributedString(string: string)
+        let output = NSMutableAttributedString.init(attributedString: self)
         
+        print(output)
+        while output.mutableString.contains("\t•\t") {
+            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t•\t")
+            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " • ")
+        }
+        
+        while output.mutableString.contains("\t◦\t") {
+            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t◦\t")
+            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " ◦ ")
+        }
+
+        while output.mutableString.contains("\t▪\t") {
+            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t▪\t")
+            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " ▪ ")
+        }
+
         // You can set default paragraph style, here.
-        // output.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(0, output.length))
+        output.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: output.length))
         output.addAttribute(NSFontAttributeName, value: normalFont, range: NSRange(location: 0, length: output.length))
         output.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: 0, length: output.length))
         attributes.forEach {
@@ -193,6 +209,7 @@ extension NSAttributedString {
                 output.addAttribute(NSBackgroundColorAttributeName, value: codeBackgroundColor, range: NSRange(location: loc, length: len))
             }
         }
+
         return output
     }
     
@@ -254,8 +271,6 @@ extension NSAttributedString {
                 }
                 if font.pointSize < 12 {
                     attributes.append(Attribute.superscript(range.location, range.length))
-                } else if font.pointSize > 12 {
-                    attributes.append(Attribute.strike(range.location, range.length))
                 }
             }
             })
