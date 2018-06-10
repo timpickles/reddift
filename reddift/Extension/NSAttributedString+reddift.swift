@@ -171,7 +171,6 @@ extension NSAttributedString {
         
         let output = NSMutableAttributedString.init(attributedString: self)
         
-        print(output)
         while output.mutableString.contains("\t•\t") {
             let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t•\t")
             output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " • ")
