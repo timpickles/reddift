@@ -202,7 +202,7 @@ public enum SearchSortBy {
 	case top
 	case comments
 	
-	var path: String {
+	public var path: String {
 		switch self {
 		case .relevance:
 			return "relevance"
@@ -227,7 +227,7 @@ public enum SearchTimePeriod {
     case year
     case all
     
-    var path: String {
+    public var path: String {
         switch self {
         case .hour:
             return "hour"
