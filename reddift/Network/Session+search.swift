@@ -21,7 +21,7 @@ extension Session {
      - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func getSearch(_ subreddit: Subreddit?, query: String, paginator: Paginator, sort: SearchSortBy, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
+    public func getSearch(_ subreddit: Subreddit?, query: String, paginator: Paginator, sort: SearchSortBy, time: SearchTimePeriod, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         var path = "/search"
         var restrict = false
         if let subreddit = subreddit {
@@ -32,7 +32,7 @@ extension Session {
             restrict = false
         }
         
-        let parameter = paginator.dictionaryByAdding(parameters: ["q":query, "sort":sort.path, "restrict_sr": restrict ? "yes" : "no"])
+        let parameter = paginator.dictionaryByAdding(parameters: ["q":query, "sort":sort.path, "restrict_sr": restrict ? "yes" : "no",  "t": time.path])
         
         guard let request = URLRequest.requestForOAuth(with: "https://reddit.com", path:path, parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
