@@ -217,6 +217,33 @@ public enum SearchSortBy {
 	}
 }
 
+public enum SearchTimePeriod {
+    case hour
+    case day
+    case week
+    case month
+    case year
+    case all
+    
+    var path: String {
+        switch self {
+        case .hour:
+            return "hour"
+        case .day:
+            return "day"
+        case .week:
+            return "week"
+        case .month:
+            return "month"
+        case .year:
+            return "year"
+        case .all:
+            return "all"
+        }
+    }
+
+}
+
 /**
 The sort method for listing user's subreddit object, "/subreddits/mine/[where]".
 */
