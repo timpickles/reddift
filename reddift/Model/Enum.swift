@@ -195,6 +195,7 @@ public enum LinkSortType {
 The sort method for search Link object, "/r/[subreddit]/search" or "/search".
 */
 public enum SearchSortBy {
+    public static let cases : [SearchSortBy] = [.relevance, .new, .hot, .top, .comments]
 	case relevance
 	case new
 	case hot
@@ -218,6 +219,7 @@ public enum SearchSortBy {
 }
 
 public enum SearchTimePeriod {
+    public static let cases : [SearchTimePeriod] = [.hour, .day, .week, .month, .year, .all]
     case hour
     case day
     case week
