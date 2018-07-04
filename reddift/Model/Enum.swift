@@ -380,7 +380,7 @@ public enum UserContent {
 		case .saved:
 			return "/saved"
 		case .gilded:
-			return "/glided"
+			return "/gilded"
 		}
 	}
     
@@ -401,7 +401,7 @@ public enum UserContent {
         case .saved:
             return "Saved"
         case .gilded:
-            return "Glided"
+            return "Gilded"
         }
     }
 }
