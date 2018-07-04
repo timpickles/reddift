@@ -220,8 +220,6 @@ extension Session {
             return Result(from: Response(data: data, urlResponse: response), optional:error)
                 .flatMap(response2Data)
                 .flatMap(data2Json)
-                .flatMap(json2RedditAny)
-                .flatMap(redditAny2Object)
         }
         return executeTask(request, handleResponse: closure, completion: completion)
     }
