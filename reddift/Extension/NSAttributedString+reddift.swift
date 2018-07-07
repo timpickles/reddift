@@ -81,10 +81,8 @@ extension String {
     */
     public var preprocessedHTMLStringBeforeNSAttributedStringParsing: String {
         get {
-            var temp = self.replacingOccurrences(of: "<del>", with: "<font size=\"5\">")
-            temp = temp.replacingOccurrences(of: "<blockquote>", with: "<cite>")
-            temp = temp.replacingOccurrences(of: "</blockquote>", with: "</cite>")
-            return temp.replacingOccurrences(of: "</del>", with: "</font>")
+            var temp = self.replacingOccurrences(of: "<blockquote>", with: "<cite>")
+            return temp.replacingOccurrences(of: "</blockquote>", with: "</cite>")
         }
     }
 }
@@ -189,7 +187,7 @@ extension NSAttributedString {
 
         // You can set default paragraph style, here.
         output.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: 0, length: output.length))
-        
+        output.addAttribute(NSBaselineOffsetAttributeName, value:NSNumber(floatLiteral: 0), range: NSRange(location: 0, length: length))
         //From https://stackoverflow.com/a/48881442/3697225
         let range = NSRange(location: 0, length: output.length)
         output.enumerateAttribute(NSFontAttributeName, in: range, options: .longestEffectiveRangeNotRequired) { attrib, range, _ in
@@ -230,7 +228,6 @@ extension NSAttributedString {
                 output.addAttribute(NSFontAttributeName, value:boldFont.withSize(size), range: NSRange(location: loc, length: len))
             }
         }
-
 
         return output
     }
@@ -275,7 +272,13 @@ extension NSAttributedString {
                 attributes.append(Attribute.link(URL, range.location, range.length))
             }
             })
-        
+        self.enumerateAttribute(NSStrikethroughStyleAttributeName, in: NSRange(location:0, length:self.length), options: [], using: { (value: Any?, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+            if(value != nil && value is NSNumber && (value as! NSNumber) == 1){
+                print("Adding strike attrs")
+                attributes.append(Attribute.strike(range.location, range.length))
+            }
+        })
+
         self.enumerateAttribute(NSFontAttributeName, in: NSRange(location:0, length:self.length), options: [], using: { (value: Any?, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             if let font = value as? _Font {
                 switch font.fontName {
