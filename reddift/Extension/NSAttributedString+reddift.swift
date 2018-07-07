@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreText
 
 /// import to use NSFont/UIFont
 #if os(iOS) || os(tvOS)
@@ -187,6 +188,7 @@ extension NSAttributedString {
 
         // You can set default paragraph style, here.
         output.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: 0, length: output.length))
+        output.addAttribute(kCTForegroundColorAttributeName as String, value: color, range: NSRange(location: 0, length: output.length))
         output.addAttribute(NSBaselineOffsetAttributeName, value:NSNumber(floatLiteral: 0), range: NSRange(location: 0, length: length))
         //From https://stackoverflow.com/a/48881442/3697225
         let range = NSRange(location: 0, length: output.length)
@@ -220,6 +222,7 @@ extension NSAttributedString {
             case .superscript(let loc, let len):
                 output.addAttribute(NSFontAttributeName, value:superscriptFont, range: NSRange(location: loc, length: len))
             case .strike(let loc, let len):
+                output.addAttribute("TTTStrikeOutAttribute", value: 1, range: NSRange(location: loc, length: len))
                 output.addAttribute(NSStrikethroughStyleAttributeName, value:NSNumber(value:1), range: NSRange(location: loc, length: len))
             case .code(let loc, let len):
                 output.addAttribute(NSFontAttributeName, value:codeFont, range: NSRange(location: loc, length: len))
