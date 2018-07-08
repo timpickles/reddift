@@ -96,6 +96,8 @@ extension Session {
                 return try getNewOrHotList(paginator, subreddit: subreddit, type: "hot", limit:limit, completion: completion)
             case .rising:
                 return try getNewOrHotList(paginator, subreddit: subreddit, type: "rising", limit:limit, completion: completion)
+            case .best:
+                return try getNewOrHotList(paginator, subreddit: subreddit, type: "best", limit:limit, completion: completion)
             }
         } catch { throw error }
     }
