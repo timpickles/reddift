@@ -105,7 +105,7 @@ public struct Comment: Thing {
     */
     public let archived: Bool
  
-    public let stickied: Bool
+    public var stickied: Bool
     /**
     example:
     */
@@ -179,7 +179,7 @@ public struct Comment: Thing {
     /**
     example:
     */
-    public let distinguished: String
+    public var distinguished: String
     /**
     example: []
     */
