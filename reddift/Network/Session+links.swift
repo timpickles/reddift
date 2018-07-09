@@ -263,14 +263,14 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, sendReplies: Bool, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
         let parameter = [
             "api_type" : "json",
             "captcha" : captcha,
             "iden" : captchaIden,
             "kind" : "link",
             "resubmit" : "true",
-            "sendreplies" : "true",
+            "sendreplies" : "\(sendReplies)",
             "sr" : subreddit.displayName,
             "title" : title,
             "url" : URL
@@ -293,14 +293,14 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitText(_ subreddit: Subreddit, title: String, text: String, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+    public func submitText(_ subreddit: Subreddit, title: String, text: String, sendReplies: Bool, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
         let parameter = [
             "api_type" : "json",
             "captcha" : captcha,
             "iden" : captchaIden,
             "kind" : "self",
             "resubmit" : "true",
-            "sendreplies" : "true",
+            "sendreplies" : "\(sendReplies)",
             "sr" : subreddit.displayName,
             "text" : text,
             "title" : title
