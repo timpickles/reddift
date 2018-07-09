@@ -150,6 +150,16 @@ extension Session {
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
     }
     
+    @discardableResult
+    public func setReplies(_ replies: Bool, name: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        let parameter = ["id":name, "state":"\(replies)"]
+        let path = "/api/sendreplies"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
+
+    
     /**
     Set hide/show a specified content.
     
