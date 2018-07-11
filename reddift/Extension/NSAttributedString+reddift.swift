@@ -245,8 +245,8 @@ extension NSAttributedString {
             let traits = normalFont.fontDescriptor.symbolicTraits
             let italicFontDescriptor = normalFont.fontDescriptor.withSymbolicTraits([traits, .traitItalic])
             let boldFontDescriptor = normalFont.fontDescriptor.withSymbolicTraits([traits, .traitBold])
-            let italicFont = _Font(descriptor: italicFontDescriptor!, size: normalFont.fontDescriptor.pointSize)
-            let boldFont = _Font(descriptor: boldFontDescriptor!, size: normalFont.fontDescriptor.pointSize)
+            let italicFont = _Font(descriptor: italicFontDescriptor ?? normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize)
+            let boldFont = _Font(descriptor: boldFontDescriptor  ?? normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize)
             let codeFont = _Font(name: "Courier", size: normalFont.fontDescriptor.pointSize) ?? normalFont
             let superscriptFont = _Font(descriptor: normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize/2)
             let paragraphStyle = NSParagraphStyle.defaultReddiftParagraphStyle(with: normalFont.fontDescriptor.pointSize)
