@@ -57,6 +57,11 @@ func flair2Choices(from json: JSONAny) -> Result<JSONAny> {
     return Result(value: (json as! JSONDictionary)["choices"])
 }
 
+func flair2Rules(from json: JSONAny) -> Result<JSONAny> {
+    return Result(value: (json as! JSONDictionary)["rules"])
+}
+
+
 /**
  Parse simple string response.
  Returns Result<Error> object when any error happned.
@@ -129,6 +134,14 @@ func json2RedditAny(from json: JSONAny) -> Result<RedditAny> {
 
 func json2Flair(from json: JSONAny) -> Result<RedditAny> {
     let object: Any? = Parser.flairAny(from: json)
+    return Result(fromOptional: object, error: ReddiftError.failedToParseThingFromJsonObject as NSError)
+}
+
+func json2Rules(from json: JSONAny) -> Result<[RuleTemplate]> {
+    var object = [RuleTemplate]()
+    for jsonChild in (json as! JSONArray){
+        object.append(RuleTemplate.init(json: jsonChild as! JSONDictionary))
+    }
     return Result(fromOptional: object, error: ReddiftError.failedToParseThingFromJsonObject as NSError)
 }
 
