@@ -198,7 +198,7 @@ extension Session {
     public func ruleList(_ subreddit: String, completion: @escaping (Result<[RuleTemplate]>) -> Void) throws -> URLSessionDataTask {
         
         let path = "/r/\(subreddit)/about/rules.json"
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"POST", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[RuleTemplate]> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
