@@ -195,6 +195,23 @@ extension Session {
     }
     
     @discardableResult
+    public func ruleList(_ subreddit: String, completion: @escaping (Result<[RuleTemplate]>) -> Void) throws -> URLSessionDataTask {
+        
+        let path = "/r/\(subreddit)/about/rules.json"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"POST", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[RuleTemplate]> in
+            return Result(from: Response(data: data, urlResponse: response), optional:error)
+                .flatMap(response2Data)
+                .flatMap(data2Json)
+                .flatMap(flair2Rules)
+                .flatMap(json2Rules)
+        }
+        return executeTask(request, handleResponse: closure, completion: completion)
+    }
+
+    
+    @discardableResult
     public func flairList(_ subreddit: String, link: String = "", name: String = "", completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
         
         var parameter = [
@@ -380,5 +397,26 @@ extension Session {
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/r/" + subreddit.displayName + "/sticky", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         return executeTask(request, handleResponse: handleResponse2RedditAny, completion: completion)
+    }
+}
+
+public struct RuleTemplate {
+    public var kind: String = "rule"
+    
+    public let description: String
+    public let shortName: String
+    public let violatonReason: String
+    
+    public init(){
+        description = ""
+        shortName = ""
+        violatonReason = ""
+    }
+    
+    public init(json: JSONDictionary) {
+        description = json["description"] as? String ?? ""
+        shortName = json["short_name"] as? String ?? ""
+        violatonReason = json["violation_reason"] as? String ?? ""
+        kind = json["kind"] as? String ?? ""
     }
 }
