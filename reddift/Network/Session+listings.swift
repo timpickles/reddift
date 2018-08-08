@@ -85,19 +85,55 @@ extension Session {
     @discardableResult
     public func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, sort: LinkSortType, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         do {
-            switch sort {
-            case .controversial:
-                return try getList(paginator, subreddit: subreddit, privateSortType: .controversial, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
-            case .top:
-                return try getList(paginator, subreddit: subreddit, privateSortType: .top, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
-            case .new:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "new", limit:limit, completion: completion)
-            case .hot:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "hot", limit:limit, completion: completion)
-            case .rising:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "rising", limit:limit, completion: completion)
-            case .best:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "best", limit:limit, completion: completion)
+            if(subreddit?.path == "/r/myrandom" || subreddit?.path == "/r/random" || subreddit?.path == "/r/randnsfw") {
+                guard let request = URLRequest.requestForOAuth(with: baseURL, path:(subreddit?.path)!, method:"GET", token:token)
+                    else { throw ReddiftError.canNotCreateURLRequest as NSError }
+                let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Void> in
+                    return Result(value: ())
+                }
+                var task: URLSessionDataTask? = nil
+                task = executeTask(request, handleResponse: closure, completion: { (result) in
+                    switch result {
+                    case .failure:
+                        print(result.error!)
+                    case .success:
+                        do {
+                            var url = task?.currentRequest?.url
+                            if(self.token != nil) { url = url?.deletingLastPathComponent() }
+                            let subreddit: SubredditURLPath = Subreddit.init(subreddit: (url?.lastPathComponent)!)
+                            switch sort {
+                            case .controversial:
+                                try self.getList(paginator, subreddit: subreddit, privateSortType: .controversial, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
+                            case .top:
+                                try self.getList(paginator, subreddit: subreddit, privateSortType: .top, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
+                            case .new:
+                                try self.getNewOrHotList(paginator, subreddit: subreddit, type: "new", limit:limit, completion: completion)
+                            case .hot:
+                                try self.getNewOrHotList(paginator, subreddit: subreddit, type: "hot", limit:limit, completion: completion)
+                            case .rising:
+                                try self.getNewOrHotList(paginator, subreddit: subreddit, type: "rising", limit:limit, completion: completion)
+                            case .best:
+                                try self.getNewOrHotList(paginator, subreddit: subreddit, type: "best", limit:limit, completion: completion)
+                            }
+                        } catch {}
+                    }
+                })
+                return task!
+            } else {
+                switch sort {
+                case .controversial:
+                    return try getList(paginator, subreddit: subreddit, privateSortType: .controversial, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
+                case .top:
+                    return try getList(paginator, subreddit: subreddit, privateSortType: .top, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
+                case .new:
+                    return try getNewOrHotList(paginator, subreddit: subreddit, type: "new", limit:limit, completion: completion)
+                case .hot:
+                    return try getNewOrHotList(paginator, subreddit: subreddit, type: "hot", limit:limit, completion: completion)
+                case .rising:
+                    return try getNewOrHotList(paginator, subreddit: subreddit, type: "rising", limit:limit, completion: completion)
+                case .best:
+                    return try getNewOrHotList(paginator, subreddit: subreddit, type: "best", limit:limit, completion: completion)
+                }
             }
         } catch { throw error }
     }
