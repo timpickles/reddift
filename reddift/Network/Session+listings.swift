@@ -85,7 +85,7 @@ extension Session {
     @discardableResult
     public func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, sort: LinkSortType, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         do {
-            if(subreddit?.path == "/r/myrandom" || subreddit?.path == "/r/random" || subreddit?.path == "/r/randnsfw") {
+            if(subreddit?.path.lowercased() == "/r/myrandom" || subreddit?.path.lowercased() == "/r/random" || subreddit?.path.lowercased() == "/r/randnsfw") {
                 guard let request = URLRequest.requestForOAuth(with: baseURL, path:(subreddit?.path)!, method:"GET", token:token)
                     else { throw ReddiftError.canNotCreateURLRequest as NSError }
                 let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Void> in
