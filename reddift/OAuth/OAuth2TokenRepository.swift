@@ -104,20 +104,20 @@ public class OAuth2TokenRepository {
     }
 }
 
-class MiniKeychain {
+public class MiniKeychain {
     let service: String?
     let accessGroup: String?
-    
+
     public init() {
         self.service = nil
         self.accessGroup = nil
     }
-    
+
     public init(service: String) {
         self.service = service
         self.accessGroup = nil
     }
-    
+
     public init(accessGroup: String) {
         if let bundleIdentifier = Bundle.main.bundleIdentifier {
             self.service = bundleIdentifier
@@ -126,128 +126,106 @@ class MiniKeychain {
         }
         self.accessGroup = accessGroup
     }
-    
+
     public init(service: String, accessGroup: String) {
         self.service = service
         self.accessGroup = accessGroup
     }
-    
-    func getDefaultQuery() -> [String: Any] {
+
+    private func getDefaultQuery() -> [String: Any] {
         var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword as String]
         if let service = self.service {
             query[kSecAttrService as String] = service
         }
         query[kSecAttrSynchronizable as String] = kSecAttrSynchronizableAny as String
         // Access group is not supported on any simulators.
-        #if (!arch(i386) && !arch(x86_64)) || (!os(iOS) && !os(watchOS) && !os(tvOS))
-            if let accessGroup = self.accessGroup {
-                query[kSecAttrAccessGroup as String] = accessGroup
-            }
-        #endif
+#if (!arch(i386) && !arch(x86_64)) || (!os(iOS) && !os(watchOS) && !os(tvOS))
+        if let accessGroup = self.accessGroup {
+            query[kSecAttrAccessGroup as String] = accessGroup
+        }
+#endif
         return query
     }
-    
+
     public func save(key: String, data: Data) throws {
         var query = getDefaultQuery()
-        
+
         query[kSecAttrAccount as String] = key
         query[kSecValueData as String] = data
-        
+
         SecItemDelete(query as CFDictionary)
-        
-        let status: OSStatus = SecItemAdd(query as CFDictionary, nil)
-        let message = Status(status: status).description
+
+        let status = SecItemAdd(query as CFDictionary, nil)
         if  status != noErr {
-            let error = NSError(domain: "a", code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-            print("OSStatus error:[\(error.code)] \(error.localizedDescription)")
-            throw error
+            throw Status(status: status)
         }
     }
-    
-    public func data(of key: String) throws -> Data  {
+
+    public func data(of key: String) throws -> Data {
         var query = getDefaultQuery()
         query[kSecAttrAccount as String] = key
         query[kSecReturnData as String] = kCFBooleanTrue
         query[kSecMatchLimit as String] = kSecMatchLimitOne
-        
+
         if let service = service {
             query[kSecAttrService as String] = service
         }
-        
-        var result :AnyObject?
-        
+
+        var result: AnyObject?
+
         let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
-        
+
         if status == noErr {
-            if let data = result as? Data {
-                return data
-            } else {
-                let error = NSError(domain: "a", code: Int(1), userInfo: [NSLocalizedDescriptionKey: "a"])
-                throw error
-            }
+            guard let data = result as? Data else { throw Status.unexpectedError }
+            return data
         } else {
-            let message = Status(status: status).description
-            let error = NSError(domain: "a", code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-            print("OSStatus error:[\(error.code)] \(error.localizedDescription)")
-            throw error
+            throw Status(status: status)
         }
     }
-    
+
     public func keys() throws -> [String] {
         var query = getDefaultQuery()
         query[kSecReturnData as String] = kCFBooleanFalse
         query[kSecReturnAttributes as String] = kCFBooleanTrue
         query[kSecMatchLimit as String] = kSecMatchLimitAll
-        
+
         if let service = service {
             query[kSecAttrService as String] = service
         }
-        
-        var result :AnyObject?
-        
+
+        var result: AnyObject?
+
         let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0)) }
-        
-        
-        let message = Status(status: status).description
-        
-        let error = NSError(domain: "a", code: Int(status), userInfo: [NSLocalizedDescriptionKey: message])
-        print("OSStatus error:[\(error.code)] \(error.localizedDescription)")
-        
-        
         switch status {
         case noErr:
-            if let dictionaries = result as? [[String: Any]] {
-                return dictionaries.flatMap({$0["acct"] as? String})
-            } else  {
-                let error = NSError(domain: "a", code: Int(Status.unexpectedError.rawValue), userInfo: [NSLocalizedDescriptionKey: ""])
-                throw error
-            }
+            guard let dictionaries = result as? [[String: Any]] else { throw Status.unexpectedError }
+            return dictionaries.compactMap({$0["acct"] as? String})
         case errSecItemNotFound:
             return []
         default:
-            throw error
+            throw Status(status: status)
         }
     }
-    
+
     @discardableResult
     public func delete(key: String) -> Bool {
         var query = getDefaultQuery()
         query[kSecAttrAccount as String] = key
-        
+
         let status: OSStatus = SecItemDelete(query as CFDictionary)
-        
+
         return status == noErr
     }
-    
+
     @discardableResult
     public func clear() -> Bool {
         let query = getDefaultQuery()
-        
+
         let status: OSStatus = SecItemDelete(query as CFDictionary)
-        
+
         return status == noErr
     }
-    
+
 }
 
 public enum Status: OSStatus, Error {
@@ -654,10 +632,17 @@ public enum Status: OSStatus, Error {
     case timestampRevocationWarning         = -67897
     case timestampRevocationNotification    = -67898
     case unexpectedError                    = -99999
+
+//    public static func status(with osstatus: OSStatus) -> Status {
+//        if let r = Status(rawValue: osstatus) {
+//            return r
+//        }
+//        return Status.unexpectedError
+//    }
 }
 
 extension Status: RawRepresentable, CustomStringConvertible {
-    
+
     public init(status: OSStatus) {
         if let mappedStatus = Status(rawValue: status) {
             self = mappedStatus
@@ -665,7 +650,7 @@ extension Status: RawRepresentable, CustomStringConvertible {
             self = .unexpectedError
         }
     }
-    
+
     public var description: String {
         switch self {
         case .success:
@@ -1477,5 +1462,3 @@ extension Status: RawRepresentable, CustomStringConvertible {
         }
     }
 }
-
-
