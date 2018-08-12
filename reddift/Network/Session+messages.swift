@@ -161,8 +161,8 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func getMessage(_ messageWhere: MessageWhere, limit: Int = 100, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message" + messageWhere.path, method:"GET", token:token)
+    public func getMessage(_ paginator: Paginator, _ messageWhere: MessageWhere, limit: Int = 100, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message" + messageWhere.path + "?after=\(paginator.after)", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
@@ -175,8 +175,8 @@ extension Session {
     }
     
     @discardableResult
-    public func getModMail(_ unread: Bool, limit: Int = 100, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message/moderator\(unread ? "/unread":"")", method:"GET", token:token)
+    public func getModMail(_ paginator: Paginator, _ unread: Bool, limit: Int = 100, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message/moderator\(unread ? "/unread":"")" + "?after=\(paginator.after)", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
