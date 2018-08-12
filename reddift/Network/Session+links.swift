@@ -346,7 +346,7 @@ extension Session {
         if let id = id {
             parameter["id"] = id
         }
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/morechildren", parameter:parameter, method:"GET", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/api/morechildren.json", parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         print(request.url?.absoluteString)
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[Thing]> in
