@@ -286,7 +286,6 @@ extension Session {
             "limit"    : "\(limit)",
 //          "sr_detail": "true",
             "sort"     : sort.param,
-            "show"     : "given"
             ])
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/user/" + username + content.path + ".json", parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
