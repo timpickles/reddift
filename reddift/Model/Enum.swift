@@ -74,7 +74,7 @@ public enum CommentSort {
     public var description: String {
         switch self {
         case .confidence:
-            return "Sort by Confidence"
+            return "Sort by Best"
         case .top:
             return "Sort by Top"
         case .new:
@@ -84,7 +84,7 @@ public enum CommentSort {
         case .controversial:
             return "Sort by Controversial"
         case .old:
-            return "Sort by time?"
+            return "Sort by Old"
         case .random:
             return "Random"
         case .qa:
