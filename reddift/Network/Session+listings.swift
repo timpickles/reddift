@@ -153,7 +153,6 @@ extension Session {
     func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, privateSortType: PrivateLinkSortBy, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
             "limit"    : "\(limit)",
-            "show"     : "all",
             "always_show_media" : "1",
             "feature" : "link_preview",
             "from_detail" : "true",
@@ -181,7 +180,6 @@ extension Session {
     public func getModQueue(_ paginator: Paginator, subreddit: SubredditURLPath?, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
             "limit"    : "\(limit)",
-            "show"     : "all",
             "always_show_media" : "1",
             "feature" : "link_preview",
             "from_detail" : "true",
