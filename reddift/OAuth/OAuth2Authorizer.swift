@@ -20,7 +20,7 @@ import Foundation
  You must access this class's instance by only OAuth2Authorizer.sharedInstance.
  */
 public class OAuth2Authorizer {
-    private var state = ""
+    public var state = ""
     /**
      Singleton model.
      */
