@@ -250,7 +250,6 @@ extension Session {
             "from_detail" : "true",
             "expand_srs" : "true",
             "sr_detail": "true",
-            "show"     : "all",
             ])
         var path = "\(type).json"
         if let subreddit = subreddit { path = "\(subreddit.path)/\(type).json" }
