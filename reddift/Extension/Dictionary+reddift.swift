@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let allowedCharacterSet = CharacterSet(charactersIn: "!$&'()*+,-./0123456789:=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~")
+private let allowedCharacterSet = CharacterSet(charactersIn: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~-_.!*'(),")
 
 /**
 Protocol to generate URL query string from Dictionary[String:String].
