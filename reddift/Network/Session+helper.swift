@@ -53,6 +53,10 @@ func data2Json(from data: Data) -> Result<JSONAny> {
     }
 }
 
+func arrayFirst(from json: JSONAny) -> Result<JSONAny> {
+    return Result(value: (json as! JSONArray)[0])
+}
+
 func flair2Choices(from json: JSONAny) -> Result<JSONAny> {
     return Result(value: (json as! JSONDictionary)["choices"])
 }
