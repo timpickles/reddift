@@ -60,7 +60,7 @@ extension Session {
      - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func getFriends(_ paginator: Paginator, count: Int = 0, limit: Int = 1, completion: @escaping (Result<RedditAny>) -> Void) throws -> URLSessionDataTask {
+    public func getFriends(_ paginator: Paginator, count: Int = 0, limit: Int = 25, completion: @escaping (Result<[User]>) -> Void) throws -> URLSessionDataTask {
         do {
             let parameter = paginator.dictionaryByAdding(parameters: [
                 "limit"    : "\(limit)",
@@ -70,11 +70,14 @@ extension Session {
                 ])
             guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/prefs/friends", parameter:parameter, method:"GET", token:token)
                 else { throw ReddiftError.canNotCreateURLRequest as NSError }
-            let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<RedditAny> in
+            let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[User]> in
+                print(String(data: data!, encoding: .utf8))
                 return Result(from: Response(data: data, urlResponse: response), optional:error)
                     .flatMap(response2Data)
                     .flatMap(data2Json)
+                    .flatMap(arrayFirst)
                     .flatMap(json2RedditAny)
+                    .flatMap(redditAny2Object)
             }
             return executeTask(request, handleResponse: closure, completion: completion)
         } catch { throw error }
