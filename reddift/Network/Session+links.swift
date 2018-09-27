@@ -177,6 +177,23 @@ extension Session {
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
     }
     
+     /**
+    Set hide/show a specified content.
+    
+    - parameter save: If you want to hide the content, set to "true". On the other, if you want to show the content, set to "false".
+    - parameter name: Name of Thing will be hide/show.
+    - parameter completion: The completion handler to call when the load request is complete.
+    - returns: Data task which requests search to reddit.com.
+     */
+    @discardableResult
+    public func setVisited(names: [String], completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        let parameter = ["links":names.flatMap({$0}).joined(separator: ",")]
+        let path = "/store_visits"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
+    
     /**
     Return a listing of things specified by their fullnames.
     Only Links, Comments, and Subreddits are allowed.
