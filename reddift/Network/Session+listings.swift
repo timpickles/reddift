@@ -365,8 +365,10 @@ extension Session {
     @discardableResult
     public func getLinksById(_ links: [Link], completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let fullnameList = links.map({ (link: Link) -> String in link.name })
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/by_id/" + fullnameList.joined(separator: ","), method:"GET", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/by_id/" + fullnameList.joined(separator: ",") + ".json", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        print(request.url?.absoluteString)
+        print(links)
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
                 .flatMap(response2Data)
