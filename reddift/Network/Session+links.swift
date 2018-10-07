@@ -187,8 +187,8 @@ extension Session {
      */
     @discardableResult
     public func setVisited(names: [String], completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-        let parameter = ["links":names.flatMap({$0}).joined(separator: ",")]
-        let path = "/store_visits"
+        let parameter = ["links": names.joined(separator: ",")]
+        let path = "/api/store_visits"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
