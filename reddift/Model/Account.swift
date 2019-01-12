@@ -56,6 +56,8 @@ public struct Account: Thing {
     example: 1
     */
     public let linkKarma: Int
+    
+    public let image: String
     /**
     user's comment karma
     example: 1
@@ -111,6 +113,7 @@ public struct Account: Thing {
         hasVerifiedEmail = false
         isFriend = false
         inboxCount = 0
+        image = ""
     }
     
     /**
@@ -134,6 +137,7 @@ public struct Account: Thing {
         over18 = data["over_18"] as? Bool ?? false
         isGold = data["is_gold"] as? Bool ?? false
         isMod = data["is_mod"] as? Bool ?? false
+        image = data["icon_img"] as? String ?? ""
         goldExpiration = data["gold_expiration"] as? Bool ?? false
         hasVerifiedEmail = data["has_verified_email"] as? Bool ?? false
         inboxCount = data["inbox_count"] as? Int ?? 0
