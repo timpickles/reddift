@@ -2,20 +2,24 @@
 [![Version](http://img.shields.io/cocoapods/v/reddift.svg?style=flat)](http://cocoadocs.org/docsets/reddift)
 [![License](https://img.shields.io/cocoapods/l/reddift.svg?style=flat)](http://cocoadocs.org/docsets/reddift)
 [![Platform](https://img.shields.io/cocoapods/p/reddift.svg?style=flat)](http://cocoadocs.org/docsets/reddift)
+[![Build Status](https://travis-ci.org/sonsongithub/reddift.svg?branch=master)](https://travis-ci.org/sonsongithub/reddift)
 
 # reddift
-reddift is Swift Reddit API Wrapper.
+reddift is Swift Reddit API Wrapper framework, and includes a browser is developed using the framework.
 
  * Supports OAuth2(is not supported on tvOS currently).
  * Supports multi-accounts.
  * Includes a sample application(iOS only).
 
-## Sample on iOS
-![sc02](https://cloud.githubusercontent.com/assets/33768/7570674/e68381c0-f84c-11e4-914b-532f9fd06e19.png)　
-![sc01](https://cloud.githubusercontent.com/assets/33768/7570673/e653f39c-f84c-11e4-98c7-2c3e9ef872ad.png)
+## Browser
 
-## Sample on tvOS
-![simulator screen shot 2015 11 18 14 48 05](https://cloud.githubusercontent.com/assets/33768/11233653/71979ba6-8e03-11e5-9ca5-077bcf2abfa5.png)
+ * It's a typical browser of reddit.com.
+ * This application uses "reddift framework" in order to access reddit.com.
+ * Includes almost all of functions, such as image thumbnails, browsing comments, search subreddits and so on.
+ * If you need more features to this, please send pull requests to me.
+
+![reddift-comments](https://cloud.githubusercontent.com/assets/33768/22405496/0c84f384-e687-11e6-9658-5ebf9d39a082.gif) 
+![reddift-images](https://cloud.githubusercontent.com/assets/33768/22405518/62246ed2-e687-11e6-9f4a-ce45c1d5bd71.gif)
 
 ## Document
 
@@ -32,6 +36,13 @@ You have to pay attention to use this library.
 ```
 # check out reddift and its submodules.
 > git clone --recursive https://github.com/sonsongithub/reddift.git
+```
+
+Check that these libraries are checked out at each path correctly.
+
+```
+/framework/vendor/HTMLSpecialCharacters
+/framework/vendor/MiniKeychain
 ```
 
 #### 2. Create application(installed app) at reddit.com
@@ -95,6 +106,23 @@ Fill each following value using above preference pain of reddit.com.
 
 Cmd + U.
 
+## How to build browser sample
+
+You have to build dependent frameworks using `carthage` before building a sample application using Xcode.
+
+    # before open xcode project file.
+    > carthage update --platform iOS
+
+`carthage` works corretly, you can get following frameworks at each path.
+    
+```
+/Carthage/Build/iOS/FLAnimatedImage.framework
+/Carthage/Build/iOS/YouTubeGetVideoInfoAPIParser.framework
+/Carthage/Build/iOS/UZTextView.framework
+```
+    
+And, you get to edit URI types and reddift_config.json as same as the framework.
+
 ## Create you app.
 
 #### Get something & Error handling
@@ -106,9 +134,9 @@ Concretely, you can access either value evaluating enum state like a following c
 
     // do not use "!" in your code
     switch(result) {
-    case .Failure(let error):
+    case .failure(let error):
         println(error)
-    case .Success(let listing):
+    case .success(let listing):
         // do something to listing
     }
 
@@ -123,9 +151,9 @@ Specifically, following sample code saves token as user name at reddit.com.
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         return OAuth2Authorizer.sharedInstance.receiveRedirect(url, completion:{(result) -> Void in
             switch result {
-            case .Failure(let error):
+            case .failure(let error):
                 print(error)
-            case .Success(let token):
+            case .success(let token):
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     OAuth2TokenRepository.saveIntoKeychainToken(token, name:token.name)
                 })
@@ -138,9 +166,9 @@ See following section about getting response or error handling.
 
 	let result = OAuth2TokenRepository.restoreFromKeychainWithName(name)
 	switch result {
-	case .Failure(let error):
+	case .failure(let error):
 	    print(error.description)
-	case .Success(let token):
+	case .success(let token):
 	    con.session = Session(token: token)
 	}
 
@@ -148,9 +176,9 @@ You can get contents from reddit via ```Session``` object like following codes.
 
     session?.getList(paginator, subreddit:subreddit, sort:sortTypes[seg.selectedSegmentIndex], timeFilterWithin:.All, completion: { (result) in
         switch result {
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
-        case .Success(let listing):
+        case .success(let listing):
             self.links.appendContentsOf(listing.children.flatMap{$0 as? Link})
         }
     })
@@ -168,9 +196,9 @@ Do not use ```Oauth2AppOnlyToken``` in installed app in terms of security.
         secret: secret,
         completion:( { (result) -> Void in
         switch result {
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
-        case .Success(let token):
+        case .success(let token):
             self.session = Session(token: token)
         }
     }))
@@ -185,7 +213,7 @@ You can play with reddift in Playground.
 In more detail, check reddift.playground package.
 Before using, you have to copy ```test_config.json``` into ```./reddift.playground/Resources``` in order to specify user account and your application informatin because reddift on Playground uses "Application Only OAuth".
 
-![playground](https://cloud.githubusercontent.com/assets/33768/9929315/deb40d78-5d66-11e5-908f-0445ad57ef90.png)
+![playground](https://cloud.githubusercontent.com/assets/33768/21675684/01d132d2-d376-11e6-9c12-77c034a74c9d.png)
 
 ## Dependency
 
