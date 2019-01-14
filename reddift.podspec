@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "reddift"
-  s.version          = "2.0.0"
+  s.version          = "2.0.3"
   s.summary          = "Swift Reddit API Wrapper."
   s.description      = <<-DESC
                       reddift is Swift Reddit API Wrapper.
@@ -12,20 +12,20 @@ Pod::Spec.new do |s|
   s.author           = { "sonson" => "yoshida.yuichi@gmail.com" }
   s.source           = {
     :git => "https://github.com/sonsongithub/reddift.git",
-    :tag => "v#{s.version}",
+    :tag => "#{s.version}",
     :submodules => true
   }
-
-  s.subspec 'MiniKeychain' do |subspec|
-    subspec.source_files = 'reddift/vendor/MiniKeychain/MiniKeychain/MiniKeychain.swift'
-  end
 
   s.social_media_url = 'https://twitter.com/sonson_twit'
 
   s.ios.deployment_target = "8.4"
   s.osx.deployment_target = "10.9"
-  s.tvos.deployment_target = "9.0"
+  s.tvos.deployment_target = "9.2"
   s.requires_arc = true
 
-  s.source_files = 'reddift/*/*.swift', 'reddift/vendor/Google/*.{h,m}'
+  s.source_files = [
+    'framework/*/*.swift'
+  ]
+  s.dependency 'HTMLSpecialCharacters'
+  s.dependency 'MiniKeychain'
 end
