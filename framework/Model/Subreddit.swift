@@ -65,7 +65,6 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
     example:
     */
     public let bannerImg: String
-    public let keyColor: String
 
     /**
     
@@ -465,7 +464,6 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         submitTextLabel = ""
         userIsModerator = false
         created = 0
-        keyColor = ""
         url = "/r/\(subreddit)/"
         hideAds = false
         createdUtc = 0
@@ -512,7 +510,6 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         subscribers = 0
         submitTextLabel = ""
         userIsModerator = false
-        keyColor = ""
         created = 0
         url = ""
         hideAds = false
@@ -558,7 +555,6 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         publicDescriptionHtml = tempPublicDescriptionHtml.unescapeHTML
         iconSize = data["icon_size"] as? [Int] ?? []
         iconImg = data["icon_img"] as? String ?? ""
-        keyColor = data["key_color"] as? String ?? ""
         headerTitle = data["header_title"] as? String ?? ""
         let tempDescription = data["description"] as? String ?? ""
         description = tempDescription.unescapeHTML
