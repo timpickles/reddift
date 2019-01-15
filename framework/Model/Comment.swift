@@ -287,6 +287,7 @@ public struct Comment: Thing, Created, Votable {
         modReports = link.modReports
         numReports = link.numReports
         ups = link.ups
+        distinguished = link.distinguished
         baseJson = link.baseJson
     }
     
