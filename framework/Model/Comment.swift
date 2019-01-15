@@ -106,7 +106,6 @@ public struct Comment: Thing, Created, Votable {
     */
     public let archived: Bool
  
-    public var stickied: Bool
     /**
     example:
     */
@@ -180,11 +179,7 @@ public struct Comment: Thing, Created, Votable {
     /**
     example:
     */
-<<<<<<< HEAD:reddift/Model/Comment.swift
-    public var distinguished: String
-=======
     public let distinguished: DistinguishType
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Model/Comment.swift
     /**
     example: []
     */
@@ -248,20 +243,12 @@ public struct Comment: Thing, Created, Votable {
         created = 0
         authorFlairText = ""
         createdUtc = 0
-<<<<<<< HEAD:reddift/Model/Comment.swift
-        distinguished = ""
-=======
         distinguished = .none
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Model/Comment.swift
         modReports = []
         permalink = ""
         numReports = 0
         ups = 0
-<<<<<<< HEAD:reddift/Model/Comment.swift
         baseJson = JSONDictionary()
-=======
-        stickied = false
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Model/Comment.swift
     }
     
     public init(link: Link) {
@@ -296,16 +283,11 @@ public struct Comment: Thing, Created, Votable {
         submissionTitle = ""
         authorFlairText = link.authorFlairText
         createdUtc = link.createdUtc
-        distinguished = ""
         permalink = ""
         modReports = link.modReports
         numReports = link.numReports
         ups = link.ups
-<<<<<<< HEAD:reddift/Model/Comment.swift
         baseJson = link.baseJson
-=======
-	stickied = false
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Model/Comment.swift
     }
     
     /**
@@ -350,10 +332,7 @@ public struct Comment: Thing, Created, Votable {
         created = data["created"] as? Int ?? 0
         authorFlairText = data["author_flair_text"] as? String ?? ""
         createdUtc = data["created_utc"] as? Int ?? 0
-<<<<<<< HEAD:reddift/Model/Comment.swift
-        distinguished = data["distinguished"] as? String ?? ""
         modReports = data["mod_reports"] as? [AnyObject] ?? []
-=======
         
         if let distinguishedString = data["distinguished"] as? String {
             switch distinguishedString {
@@ -366,8 +345,6 @@ public struct Comment: Thing, Created, Votable {
             distinguished = .none
         }
         
-        modReports = []
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Model/Comment.swift
         numReports = data["num_reports"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
         stickied = data["stickied"] as? Bool ?? false
