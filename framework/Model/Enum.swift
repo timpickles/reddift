@@ -453,7 +453,7 @@ public enum DistinguishType {
     case moderator
     case admin
     case special
-    var type: String {
+    public var type: String {
         switch self {
         case .none:
             return "none"
