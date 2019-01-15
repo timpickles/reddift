@@ -60,15 +60,9 @@ public class OAuth2Authorizer {
                 } else {
                     UIApplication.shared.openURL(authorizationURL)
                 }
-<<<<<<< HEAD:reddift/OAuth/OAuth2Authorizer.swift
-            #elseif os(macOS)
-                NSWorkspace.shared().open(authorizationURL)
-            #endif
-=======
 #elseif os(macOS)
                 NSWorkspace.shared.open(authorizationURL)
 #endif
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/OAuth/OAuth2Authorizer.swift
         } else {
             throw ReddiftError.canNotAllocateDataToCreateURLForOAuth2 as NSError
         }
@@ -82,14 +76,6 @@ public class OAuth2Authorizer {
      - returns: Returns if the URL object is parsed correctly.
      */
     public func receiveRedirect(_ url: URL, completion: @escaping (Result<OAuth2Token>) -> Void) -> Bool {
-<<<<<<< HEAD:reddift/OAuth/OAuth2Authorizer.swift
-        var parameters: [String:String] = url.getKeyVals()!
-        let currentState = self.state
-        print("Current state is \(currentState)")
-        self.state = ""
-        if let code = parameters["code"], let state = parameters["state"]?.decodeUrl() {
-            if code.characters.count > 0 {
-=======
         var parameters: [String: String] = [:]
         self.state = ""
         if url.scheme == Config.sharedInstance.redirectURIScheme {
@@ -99,7 +85,6 @@ public class OAuth2Authorizer {
         }
         if let code = parameters["code"], let _ = parameters["state"] {
             if !code.isEmpty {
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/OAuth/OAuth2Authorizer.swift
                 do {
                     try OAuth2Token.getOAuth2Token(code, completion: completion)
                     return true
