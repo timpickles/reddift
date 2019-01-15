@@ -323,7 +323,7 @@ public struct Link: Thing, Created, Votable {
         }
         
         let tempFlair = data["link_flair_text"] as? String ?? ""
-        linkFlairText = tempFlair.gtm_stringByUnescapingFromHTML()
+        linkFlairText = tempFlair.unescapeHTML
         
         gilded = data["gilded"] as? Int ?? 0
         archived = data["archived"] as? Bool ?? false
@@ -351,12 +351,12 @@ public struct Link: Thing, Created, Votable {
         created = data["created"] as? Int ?? 0
         
         var tempUrl = data["url"] as? String ?? ""
-        tempUrl = tempUrl.gtm_stringByEscapingForHTML()
+        tempUrl = tempUrl.unescapeHTML
         url = URL.init(string: tempUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
         authorFlairText = data["author_flair_text"] as? String ?? ""
         let tempTitle = data["title"] as? String ?? ""
-        title = tempTitle.gtm_stringByUnescapingFromHTML()
+        title = tempTitle.unescapeHTML
 
         createdUtc = data["created_utc"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
