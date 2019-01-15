@@ -7,11 +7,7 @@
 //
 
 import Foundation
-<<<<<<< HEAD:reddift/Extension/NSAttributedString+reddift.swift
-import CoreText
-=======
 import HTMLSpecialCharacters
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Extension/NSAttributedString+reddift.swift
 
 /// import to use NSFont/UIFont
 #if os(iOS) || os(tvOS)
@@ -35,7 +31,6 @@ private enum Attribute {
     case superscript(Int, Int)
     case strike(Int, Int)
     case code(Int, Int)
-    case head(Int, Int, CGFloat)
 }
 
 /// Extension for NSParagraphStyle
@@ -55,7 +50,7 @@ extension NSParagraphStyle {
 #endif
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .left
-        paragraphStyle.maximumLineHeight = fontSize + 10
+        paragraphStyle.maximumLineHeight = fontSize + 2
         paragraphStyle.minimumLineHeight = fontSize + 2
         paragraphStyle.lineSpacing = 1
         paragraphStyle.paragraphSpacing = 1
@@ -84,8 +79,10 @@ extension String {
     */
     public var preprocessedHTMLStringBeforeNSAttributedStringParsing: String {
         get {
-            var temp = self.replacingOccurrences(of: "<blockquote>", with: "<cite>")
-            return temp.replacingOccurrences(of: "</blockquote>", with: "</cite>")
+            var temp = self.replacingOccurrences(of: "<del>", with: "<font size=\"5\">")
+            temp = temp.replacingOccurrences(of: "<blockquote>", with: "<cite>")
+            temp = temp.replacingOccurrences(of: "</blockquote>", with: "</cite>")
+            return temp.replacingOccurrences(of: "</del>", with: "</font>")
         }
     }
 }
@@ -168,55 +165,14 @@ extension NSAttributedString {
      */
     private func __reconstruct(with normalFont: _Font, color: ReddiftColor, linkColor: ReddiftColor, codeBackgroundColor: ReddiftColor) -> NSAttributedString {
         let attributes = self.attributesForReddift
-        let (italicFont, boldFont, codeFont, superscriptFont, paragraphStyle) = createDerivativeFonts(normalFont)
+        let (italicFont, boldFont, codeFont, superscriptFont, _) = createDerivativeFonts(normalFont)
         
-        let output = NSMutableAttributedString.init(attributedString: self)
+        let output = NSMutableAttributedString(string: string)
         
-        while output.mutableString.contains("\t•\t") {
-            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t•\t")
-            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " • ")
-        }
-        
-        while output.mutableString.contains("\t◦\t") {
-            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t◦\t")
-            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " ◦ ")
-        }
-
-        while output.mutableString.contains("\t▪\t") {
-            let rangeOfStringToBeReplaced = output.mutableString.range(of: "\t▪\t")
-            output.replaceCharacters(in: rangeOfStringToBeReplaced, with: " ▪ ")
-        }
-
         // You can set default paragraph style, here.
-<<<<<<< HEAD:reddift/Extension/NSAttributedString+reddift.swift
-        output.addAttribute(NSForegroundColorAttributeName, value: color, range: NSRange(location: 0, length: output.length))
-        output.addAttribute(kCTForegroundColorAttributeName as String, value: color, range: NSRange(location: 0, length: output.length))
-        output.addAttribute(NSBaselineOffsetAttributeName, value:NSNumber(floatLiteral: 0), range: NSRange(location: 0, length: length))
-        //From https://stackoverflow.com/a/48881442/3697225
-        let range = NSRange(location: 0, length: output.length)
-        output.enumerateAttribute(NSFontAttributeName, in: range, options: .longestEffectiveRangeNotRequired) { attrib, range, _ in
-            if let htmlFont = attrib as? UIFont {
-                let traits = htmlFont.fontDescriptor.symbolicTraits
-                var descrip = htmlFont.fontDescriptor.withFamily(normalFont.familyName)
-                
-                if (traits.rawValue & UIFontDescriptorSymbolicTraits.traitBold.rawValue) != 0 {
-                    descrip = descrip.withSymbolicTraits(.traitBold)!
-                }
-                
-                if (traits.rawValue & UIFontDescriptorSymbolicTraits.traitItalic.rawValue) != 0 {
-                    descrip = descrip.withSymbolicTraits(.traitItalic)!
-                }
-                
-                output.addAttribute(NSFontAttributeName, value: normalFont.withSize(htmlFont.pointSize == 12 ? normalFont.pointSize : (htmlFont.pointSize / 12) * normalFont.pointSize), range: range)
-            }
-        }
-
-
-=======
         // output.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(0, output.length))
         output.addAttribute(NSAttributedStringKey.font, value: normalFont, range: NSRange(location: 0, length: output.length))
         output.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: NSRange(location: 0, length: output.length))
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Extension/NSAttributedString+reddift.swift
         attributes.forEach {
             switch $0 {
             case .link(let URL, let loc, let len):
@@ -229,23 +185,12 @@ extension NSAttributedString {
             case .superscript(let loc, let len):
                 output.addAttribute(NSAttributedStringKey.font, value: superscriptFont, range: NSRange(location: loc, length: len))
             case .strike(let loc, let len):
-<<<<<<< HEAD:reddift/Extension/NSAttributedString+reddift.swift
-                output.addAttribute("TTTStrikeOutAttribute", value: 1, range: NSRange(location: loc, length: len))
-                output.addAttribute(NSStrikethroughStyleAttributeName, value:NSNumber(value:1), range: NSRange(location: loc, length: len))
-            case .code(let loc, let len):
-                output.addAttribute(NSFontAttributeName, value:codeFont, range: NSRange(location: loc, length: len))
-                output.addAttribute(NSBackgroundColorAttributeName, value: codeBackgroundColor, range: NSRange(location: loc, length: len))
-            case .head(let loc, let len, let size):
-                output.addAttribute(NSFontAttributeName, value:boldFont.withSize(size), range: NSRange(location: loc, length: len))
-=======
                 output.addAttribute(NSAttributedStringKey.strikethroughStyle, value: NSNumber(value: 1), range: NSRange(location: loc, length: len))
             case .code(let loc, let len):
                 output.addAttribute(NSAttributedStringKey.font, value: codeFont, range: NSRange(location: loc, length: len))
                 output.addAttribute(NSAttributedStringKey.backgroundColor, value: codeBackgroundColor, range: NSRange(location: loc, length: len))
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Extension/NSAttributedString+reddift.swift
             }
         }
-
         return output
     }
     
@@ -259,8 +204,8 @@ extension NSAttributedString {
             let traits = normalFont.fontDescriptor.symbolicTraits
             let italicFontDescriptor = normalFont.fontDescriptor.withSymbolicTraits([traits, .traitItalic])
             let boldFontDescriptor = normalFont.fontDescriptor.withSymbolicTraits([traits, .traitBold])
-            let italicFont = _Font(descriptor: italicFontDescriptor ?? normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize)
-            let boldFont = _Font(descriptor: boldFontDescriptor  ?? normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize)
+            let italicFont = _Font(descriptor: italicFontDescriptor!, size: normalFont.fontDescriptor.pointSize)
+            let boldFont = _Font(descriptor: boldFontDescriptor!, size: normalFont.fontDescriptor.pointSize)
             let codeFont = _Font(name: "Courier", size: normalFont.fontDescriptor.pointSize) ?? normalFont
             let superscriptFont = _Font(descriptor: normalFont.fontDescriptor, size: normalFont.fontDescriptor.pointSize/2)
             let paragraphStyle = NSParagraphStyle.defaultReddiftParagraphStyle(with: normalFont.fontDescriptor.pointSize)
@@ -289,43 +234,26 @@ extension NSAttributedString {
                 attributes.append(Attribute.link(URL, range.location, range.length))
             }
             })
-<<<<<<< HEAD:reddift/Extension/NSAttributedString+reddift.swift
-        self.enumerateAttribute(NSStrikethroughStyleAttributeName, in: NSRange(location:0, length:self.length), options: [], using: { (value: Any?, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-            if(value != nil && value is NSNumber && (value as! NSNumber) == 1){
-                print("Adding strike attrs")
-                attributes.append(Attribute.strike(range.location, range.length))
-            }
-        })
-
-        self.enumerateAttribute(NSFontAttributeName, in: NSRange(location:0, length:self.length), options: [], using: { (value: Any?, range: NSRange, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-=======
         
         self.enumerateAttribute(NSAttributedStringKey.font, in: NSRange(location: 0, length: self.length), options: [], using: { (value: Any?, range: NSRange, _) -> Void in
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Extension/NSAttributedString+reddift.swift
             if let font = value as? _Font {
                 switch font.fontName {
                 case "TimesNewRomanPS-BoldItalicMT":
                     attributes.append(Attribute.italic(range.location, range.length))
                     attributes.append(Attribute.bold(range.location, range.length))
-                    break
                 case "TimesNewRomanPS-ItalicMT":
                     attributes.append(Attribute.italic(range.location, range.length))
-                    break
                 case "TimesNewRomanPS-BoldMT":
-                    if(font.pointSize == 12){
-                        attributes.append(Attribute.bold(range.location, range.length))
-                    } else {
-                        attributes.append(Attribute.head(range.location, range.length, font.pointSize))
-                    }
-                    break
+                    attributes.append(Attribute.bold(range.location, range.length))
                 case "Courier":
                     attributes.append(Attribute.code(range.location, range.length))
-                    break
                 default:
                     do {}
                 }
                 if font.pointSize < 12 {
                     attributes.append(Attribute.superscript(range.location, range.length))
+                } else if font.pointSize > 12 {
+                    attributes.append(Attribute.strike(range.location, range.length))
                 }
             }
             })
