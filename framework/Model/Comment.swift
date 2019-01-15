@@ -179,7 +179,7 @@ public struct Comment: Thing, Created, Votable {
     /**
     example:
     */
-    public let distinguished: DistinguishType
+    public var distinguished: DistinguishType
     /**
     example: []
     */
@@ -196,7 +196,7 @@ public struct Comment: Thing, Created, Votable {
     /**
 	   if the comment is stickied
    	*/
-   	public let stickied: Bool
+   	public var stickied: Bool
     
     public var isExpandable: Bool {
         get {
