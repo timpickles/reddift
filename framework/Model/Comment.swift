@@ -348,7 +348,6 @@ public struct Comment: Thing, Created, Votable {
         
         numReports = data["num_reports"] as? Int ?? 0
         ups = data["ups"] as? Int ?? 0
-        stickied = data["stickied"] as? Bool ?? false
         if let temp = data["replies"] as? JSONDictionary {
             if let obj = Parser.redditAny(from: temp) as? Listing {
                 replies = obj
