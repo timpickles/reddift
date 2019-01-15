@@ -47,11 +47,7 @@ extension Session {
         if !note.isEmpty { json["note"] = note }
         do {
             let data = try JSONSerialization.data(withJSONObject: json, options: [])
-<<<<<<< HEAD:reddift/Network/Session+users.swift
             guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path:"/api/v1/me/friends/" + username, data:data, method:"PUT", token:token)
-=======
-            guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path: "api/v1/me/friends/" + username, data: data, method: "PUT", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+users.swift
                 else { throw ReddiftError.canNotCreateURLRequest as NSError }
             let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<JSONAny> in
                 return Result(from: Response(data: data, urlResponse: response), optional: error)
@@ -75,11 +71,7 @@ extension Session {
         let parameters = [
             "id": username
         ]
-<<<<<<< HEAD:reddift/Network/Session+users.swift
         guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path:"/api/v1/me/friends/" + username, parameter:parameters, method:"DELETE", token:token)
-=======
-        guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path: "api/v1/me/friends/" + username, parameter: parameters, method: "DELETE", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+users.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<JSONAny> in
             return Result(from: Response(data: data, urlResponse: response), optional: error)
@@ -293,16 +285,9 @@ extension Session {
         let parameter = paginator.dictionaryByAdding(parameters: [
             "limit": "\(limit)",
 //          "sr_detail": "true",
-<<<<<<< HEAD:reddift/Network/Session+users.swift
             "sort"     : sort.param,
             ])
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/user/" + username + content.path + ".json", parameter:parameter, method:"GET", token:token)
-=======
-            "sort": sort.param,
-            "show": "given"
-            ])
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/user/" + username + content.path, parameter: parameter, method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+users.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional: error)
@@ -322,11 +307,7 @@ extension Session {
      */
     @discardableResult
     public func getUserProfile(_ username: String, completion: @escaping (Result<Account>) -> Void) throws -> URLSessionDataTask {
-<<<<<<< HEAD:reddift/Network/Session+users.swift
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/user/\(username)/about.json", method:"GET", token:token)
-=======
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/user/\(username)/about", method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+users.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Account> in
             return Result(from: Response(data: data, urlResponse: response), optional: error)
