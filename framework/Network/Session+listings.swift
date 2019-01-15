@@ -46,13 +46,8 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
     public func getArticles(_ id: String, sort: CommentSort, comments: [String]? = nil, depth: Int? = nil, context: Int? = 1,  limit: Int? = nil, completion: @escaping (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
-        var parameter = ["sort":sort.type, "showmore":"True"]
-=======
-    public func getArticles(_ link: Link, sort: CommentSort, comments: [String]? = nil, depth: Int? = nil, limit: Int? = nil, context: Int? = nil, completion: @escaping (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
-        var parameter = ["sort": sort.type, "showmore": "True"]
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
+        var parameter = ["sort": sort.type, "showmore":"True"]
         if let depth = depth {
             parameter["depth"] = "\(depth)"
         }
@@ -63,15 +58,10 @@ extension Session {
             let commaSeparatedIDString = comments.joined(separator: ",")
             parameter["comment"] = commaSeparatedIDString
         }
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
-        parameter["context"] = "\(context!)"
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/comments/" + id + ".json", parameter:parameter, method:"GET", token:token)
-=======
         if let context = context {
 			parameter["context"] = String(context)
 		}
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/comments/" + link.id + ".json", parameter: parameter, method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/comments/" + id + ".json", parameter: parameter, method: "GET", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<(Listing, Listing)> in
             
@@ -98,7 +88,6 @@ extension Session {
     @discardableResult
     public func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, sort: LinkSortType, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         do {
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
             if(subreddit?.path.lowercased() == "/r/myrandom" || subreddit?.path.lowercased() == "/r/random" || subreddit?.path.lowercased() == "/r/randnsfw") {
                 guard let request = URLRequest.requestForOAuth(with: baseURL, path:(subreddit?.path)!, method:"GET", token:token)
                     else { throw ReddiftError.canNotCreateURLRequest as NSError }
@@ -148,17 +137,6 @@ extension Session {
                 case .best:
                     return try getNewOrHotList(paginator, subreddit: subreddit, type: "best", limit:limit, completion: completion)
                 }
-=======
-            switch sort {
-            case .controversial:
-                return try getList(paginator, subreddit: subreddit, privateSortType: .controversial, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
-            case .top:
-                return try getList(paginator, subreddit: subreddit, privateSortType: .top, timeFilterWithin: timeFilterWithin, limit: limit, completion: completion)
-            case .new:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "new", limit: limit, completion: completion)
-            case .hot:
-                return try getNewOrHotList(paginator, subreddit: subreddit, type: "hot", limit: limit, completion: completion)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
             }
         } catch { throw error }
     }
@@ -177,7 +155,6 @@ extension Session {
     @discardableResult
     func getList(_ paginator: Paginator, subreddit: SubredditURLPath?, privateSortType: LinkSortType, timeFilterWithin: TimeFilterWithin, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
             "limit"    : "\(limit)",
             "always_show_media" : "1",
             "feature" : "link_preview",
@@ -185,12 +162,6 @@ extension Session {
             "expand_srs" : "true",
             "sr_detail": "true",
             "t"        : timeFilterWithin.param
-=======
-            "limit": "\(limit)",
-            "show": "all",
-//          "sr_detail": "true",
-            "t": timeFilterWithin.param
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
         ])
         var path = "\(privateSortType.path).json"
         if let subreddit = subreddit { path = "\(subreddit.path)\(privateSortType.path).json" }
@@ -276,18 +247,12 @@ extension Session {
     @discardableResult
     func getNewOrHotList(_ paginator: Paginator, subreddit: SubredditURLPath?, type: String, limit: Int = 25, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
             "limit"    : "\(limit)",
             "always_show_media" : "1",
             "feature" : "link_preview",
             "from_detail" : "true",
             "expand_srs" : "true",
             "sr_detail": "true",
-=======
-            "limit": "\(limit)",
-            //            "sr_detail": "true",
-            "show": "all"
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
             ])
         var path = "\(type).json"
         if let subreddit = subreddit { path = "\(subreddit.path)/\(type).json" }
@@ -341,7 +306,6 @@ extension Session {
     @discardableResult
     public func getRelatedArticles(_ paginator: Paginator, thing: Thing, limit: Int = 25, completion: @escaping (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
             "limit"    : "\(limit)",
             "always_show_media" : "1",
             "feature" : "link_preview",
@@ -349,11 +313,6 @@ extension Session {
             "expand_srs" : "true",
             "sr_detail": "true",
             "show"     : "all",
-=======
-            "limit": "\(limit)",
-            //            "sr_detail": "true",
-            "show": "all"
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
         ])
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/related/" + thing.id + ".json", parameter: parameter, method: "GET", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
@@ -379,7 +338,6 @@ extension Session {
     @discardableResult
     public func getDuplicatedArticles(_ paginator: Paginator, name: String, limit: Int = 25, completion: @escaping  (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
         let parameter = paginator.dictionaryByAdding(parameters: [
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
             "limit"    : "\(limit)",
             "always_show_media" : "1",
             "feature" : "link_preview",
@@ -389,13 +347,6 @@ extension Session {
             "show"     : "all"
         ])
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/duplicates/" + name, parameter:parameter, method:"GET", token:token)
-=======
-            "limit": "\(limit)",
-//            "sr_detail": "true",
-            "show": "all"
-        ])
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/duplicates/" + thing.id + ".json", parameter: parameter, method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<(Listing, Listing)> in
             return Result(from: Response(data: data, urlResponse: response), optional: error)
@@ -417,11 +368,7 @@ extension Session {
     @discardableResult
     public func getLinksById(_ links: [Link], completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
         let fullnameList = links.map({ (link: Link) -> String in link.name })
-<<<<<<< HEAD:reddift/Network/Session+listings.swift
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/by_id/" + fullnameList.joined(separator: ",") + ".json", method:"GET", token:token)
-=======
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/by_id/" + fullnameList.joined(separator: ",") + ".json", method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+listings.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         print(request.url?.absoluteString)
         print(links)
