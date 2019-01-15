@@ -99,11 +99,7 @@ extension Session {
      */
     @discardableResult
     public func about(_ subredditName: String, completion: @escaping (Result<Subreddit>) -> Void) throws -> URLSessionDataTask {
-<<<<<<< HEAD:reddift/Network/Session+subreddits.swift
         guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/r/\(subredditName)/about.json", method:"GET", token:token)
-=======
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/r/\(subredditName)/about", method: "GET", token: token)
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+subreddits.swift
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Subreddit> in
@@ -179,21 +175,12 @@ extension Session {
     @discardableResult
     public func about(_ subreddit: Subreddit, aboutWhere: SubredditAbout, user: String = "", count: Int = 0, limit: Int = 25, completion: @escaping (Result<[User]>) -> Void) throws -> URLSessionDataTask {
         let parameter = [
-<<<<<<< HEAD:reddift/Network/Session+subreddits.swift
             "count"    : "\(count)",
             "limit"    : "\(limit)",
             "show"     : "all",
             //          "sr_detail": "true",
             //          "user"     :"username"
         ]
-=======
-            "count": "\(count)",
-            "limit": "\(limit)",
-            "show": "all"
-//          "sr_detail": "true",
-//          "user"     :"username"
-            ]
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+subreddits.swift
         let path = "/r/\(subreddit.displayName)/about/\(aboutWhere.rawValue)"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: path, parameter: parameter, method: "GET", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
@@ -291,11 +278,7 @@ extension Session {
      */
     @discardableResult
     public func setSubscribeSubreddit(_ subreddit: Subreddit, subscribe: Bool, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-<<<<<<< HEAD:reddift/Network/Session+subreddits.swift
         var parameter = ["sr_name":subreddit.displayName]
-=======
-        var parameter = ["sr": subreddit.name]
->>>>>>> d93320dc35ad81e7bce9e5b76a87654a5bc84d7b:framework/Network/Session+subreddits.swift
         parameter["action"] = (subscribe) ? "sub" : "unsub"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/subscribe", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
