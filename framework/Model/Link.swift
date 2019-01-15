@@ -195,7 +195,7 @@ public struct Link: Thing, Created, Votable {
      true if the post is set as the sticky in its subreddit.
      example: false
      */
-    public let stickied: Bool
+    public var stickied: Bool
     /**
      example: 1429292148
      */
@@ -244,7 +244,7 @@ public struct Link: Thing, Created, Votable {
     How the link is distinguished from other comments.
     example: .admin
     */
-    public let distinguished: DistinguishType
+    public var distinguished: DistinguishType
 	
     public init(id: String) {
         self.id = id
