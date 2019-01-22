@@ -420,7 +420,7 @@ public enum UserContentSortBy {
 	case top
 	case controversial
     
-    static let cases: [UserContentSortBy] = [.hot, .new, .top, .controversial]
+    public static let cases: [UserContentSortBy] = [.hot, .new, .top, .controversial]
     
 	var param: String {
 		switch self {
@@ -434,6 +434,19 @@ public enum UserContentSortBy {
 			return "controversial"
 		}
 	}
+    
+    public var description: String {
+        switch self{
+        case .hot:
+            return "Hot"
+        case .new:
+            return "New"
+        case .top:
+            return "Top"
+        case .controversial:
+            return "Controversial"
+        }
+    }
 }
 
 /**
