@@ -46,8 +46,13 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func getArticles(_ id: String, sort: CommentSort, comments: [String]? = nil, depth: Int? = nil, context: Int? = 1,  limit: Int? = nil, completion: @escaping (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
-        var parameter = ["sort": sort.type, "showmore":"True"]
+    public func getArticles(_ id: String, sort: CommentSort?, comments: [String]? = nil, depth: Int? = nil, context: Int? = 1,  limit: Int? = nil, completion: @escaping (Result<(Listing, Listing)>) -> Void) throws -> URLSessionDataTask {
+        var parameter: [String: String]
+        if sort == nil {
+            parameter = ["showmore":"True"]
+        } else {
+            parameter = ["sort": sort!.type, "showmore":"True"]
+        }
         if let depth = depth {
             parameter["depth"] = "\(depth)"
         }
