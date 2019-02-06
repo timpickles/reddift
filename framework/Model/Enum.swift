@@ -20,8 +20,9 @@ public enum CommentSort {
 	case old
 	case random
 	case qa
-	
-    public static let cases: [CommentSort] = [.confidence, .top, .new, .hot, .controversial, .old]
+    case suggested
+
+    public static let cases: [CommentSort] = [.suggested, .confidence, .top, .new, .hot, .controversial, .old]
 
 	/**
 	Returns string to create a path of URL.
@@ -30,6 +31,8 @@ public enum CommentSort {
 		switch self {
 		case .confidence:
 			return "/confidence"
+        case .suggested:
+            return ""
 		case .top:
 			return "/top"
 		case .new:
@@ -68,6 +71,8 @@ public enum CommentSort {
 			return "random"
 		case .qa:
 			return "qa"
+        case .suggested:
+            return "suggested"
 		}
 	}
     
@@ -89,6 +94,8 @@ public enum CommentSort {
             return "Random"
         case .qa:
             return "Sort by Quality?"
+        case .suggested:
+            return "Sort by Suggested"
         }
     }
 }
