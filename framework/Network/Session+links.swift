@@ -290,8 +290,8 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, sendReplies: Bool, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-        let parameter = [
+    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        var parameter = [
             "api_type" : "json",
             "captcha" : captcha,
             "iden" : captchaIden,
@@ -302,6 +302,9 @@ extension Session {
             "title" : title,
             "url" : URL
         ]
+        if flairID != nil {
+            parameter["flair_id"] = flairID!
+        }
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/submit", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
@@ -320,8 +323,8 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitText(_ subreddit: Subreddit, title: String, text: String, sendReplies: Bool, captcha: String, captchaIden: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-        let parameter = [
+    public func submitText(_ subreddit: Subreddit, title: String, text: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        var parameter = [
             "api_type" : "json",
             "captcha" : captcha,
             "iden" : captchaIden,
@@ -332,6 +335,9 @@ extension Session {
             "text" : text,
             "title" : title
         ]
+        if flairID != nil {
+            parameter["flair_id"] = flairID!
+        }
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/submit", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
