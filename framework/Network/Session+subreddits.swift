@@ -292,6 +292,13 @@ extension Session {
         return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
     }
     
+    @discardableResult
+    public func getSubmitFlairs(_ subreddit: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/r/\(subreddit)/api/link_flair_v2.json", parameter: [:], method: "GET", token: token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        return executeTask(request, handleResponse: handleResponse2JSON, completion: completion)
+    }
+
     /**
      Get all subreddits.
      The where parameter chooses the order in which the subreddits are displayed.
