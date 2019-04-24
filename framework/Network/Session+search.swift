@@ -32,7 +32,7 @@ extension Session {
             restrict = false
         }
         
-        let parameter = paginator.dictionaryByAdding(parameters: ["q":query, "sort":sort.path, "include_over_18": nsfw ? "1" : "0", "restrict_sr": restrict ? "yes" : "no",  "t": time.path])
+        let parameter = paginator.dictionaryByAdding(parameters: ["q":query, "always_show_media" : "1", "feature": "link_preview", "expand_srs": "true", "sr_detail": "true", "from_detail": "true", "sort": sort.path, "include_over_18": nsfw ? "1" : "0", "restrict_sr": restrict ? "yes" : "no",  "t": time.path])
         
         guard let request = URLRequest.requestForOAuth(with: "https://reddit.com", path:path, parameter:parameter, method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
