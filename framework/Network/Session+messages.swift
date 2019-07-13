@@ -140,7 +140,7 @@ extension Session {
      */
     @discardableResult
     public func blockViaUsername(_ username: String, modhash: String = "", completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-        let parameter = [name: username]
+        let parameter = ["name": username]
         guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path: "/api/block_user", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<JSONAny> in
