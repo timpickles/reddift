@@ -246,6 +246,47 @@ extension Session {
     }
     
     @discardableResult
+    public func userFlairList(_ subreddit: String, completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
+        
+        let path = "/r/\(subreddit)/api/flairselector"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"GET", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[FlairTemplate]> in
+            return Result(from: Response(data: data, urlResponse: response), optional:error)
+                .flatMap(response2Data)
+                .flatMap(data2Json)
+                .flatMap(flair2Choices)
+                .flatMap(json2Flair)
+                .flatMap(redditAny2Object)
+        }
+        return executeTask(request, handleResponse: closure, completion: completion)
+    }
+
+    @discardableResult
+    public func flairUser(_ subreddit: String, flairId: String, username: String, text: String = "", completion: @escaping (Result<String>) -> Void) throws -> URLSessionDataTask {
+        
+        var parameter = [
+            "api_type": "json",
+            "flair_template_id"    : flairId,
+            "name"    : username,
+        ]
+        
+        if(!text.isEmpty){
+            parameter["text"] = text
+        }
+        
+        let path = "/r/\(subreddit)/api/selectflair"
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:parameter, method:"POST", token:token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<String> in
+            return Result(from: Response(data: data, urlResponse: response), optional:error)
+                .flatMap(response2Data)
+                .flatMap(data2String)
+        }
+        return executeTask(request, handleResponse: closure, completion: completion)
+    }
+
+    @discardableResult
     public func flairSubmission(_ subreddit: String, flairId: String, submissionFullname: String, text: String = "", completion: @escaping (Result<String>) -> Void) throws -> URLSessionDataTask {
         
         var parameter = [
