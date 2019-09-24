@@ -249,7 +249,7 @@ extension Session {
     public func userFlairList(_ subreddit: String, completion: @escaping (Result<[FlairTemplate]>) -> Void) throws -> URLSessionDataTask {
         
         let path = "/r/\(subreddit)/api/flairselector"
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"GET", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:path, parameter:[:], method:"POST", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<[FlairTemplate]> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
