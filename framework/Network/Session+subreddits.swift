@@ -385,7 +385,7 @@ extension Session {
      */
     @discardableResult
     public func getUserRelatedSubreddit(_ mine: SubredditsMineWhere, paginator: Paginator, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path: mine.path, parameter: paginator.parameterDictionary, method: "GET", token: token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path: mine.path, parameter: paginator.dictionaryByAdding(parameters: ["limit":"100"]), method: "GET", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional: error)
