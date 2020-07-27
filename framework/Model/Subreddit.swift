@@ -229,6 +229,11 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
     example:
     */
     public let iconImg: String
+    
+    /** 
+    example:
+    */
+    public let communityIcon: String
     /**
     description of header image shown on hover, or null
     example: Turn on the stylesheet and click Carl Sagan's head
@@ -454,6 +459,7 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         publicDescriptionHtml = ""
         iconSize = []
         iconImg = ""
+        communityIcon = ""
         headerTitle = ""
         description = ""
         submitLinkLabel = ""
@@ -501,6 +507,7 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         publicDescriptionHtml = ""
         iconSize = []
         iconImg = ""
+        communityIcon = ""
         headerTitle = ""
         description = ""
         submitLinkLabel = ""
@@ -555,6 +562,7 @@ public struct Subreddit: SubredditURLPath, Thing, Created {
         publicDescriptionHtml = tempPublicDescriptionHtml.unescapeHTML
         iconSize = data["icon_size"] as? [Int] ?? []
         iconImg = data["icon_img"] as? String ?? ""
+        communityIcon = data["community_icon"] as? String ?? ""
         headerTitle = data["header_title"] as? String ?? ""
         let tempDescription = data["description"] as? String ?? ""
         description = tempDescription.unescapeHTML
