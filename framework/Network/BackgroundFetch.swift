@@ -34,6 +34,10 @@ public class BackgroundFetch: NSObject, URLSessionDownloadDelegate {
         tokenURLSession?.finishTasksAndInvalidate()
     }
     
+    public func cancel() {
+        taskURLSession?.invalidateAndCancel()
+    }
+    
     public func resume() {
         guard let taskURLSession = self.taskURLSession else { return }
         taskURLSession.downloadTask(with: request).resume()
@@ -77,12 +81,21 @@ public class BackgroundFetch: NSObject, URLSessionDownloadDelegate {
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let response = downloadTask.response as? HTTPURLResponse
-            else { return }
+        else {
+            taskHandler(nil, nil, ReddiftError.unknown as NSError)
+            return
+        }
         guard let token = self.session.token as? OAuth2Token
-            else { return }
+        else {
+            taskHandler(nil, nil, ReddiftError.unknown as NSError)
+            return
+        }
         guard let requestForRefreshToken = token.requestForRefreshing()
-            else { return }
-        
+        else {
+            taskHandler(nil, nil, ReddiftError.unknown as NSError)
+            return
+        }
+
         if session == tokenURLSession {
             handleTokenRefresh(with: response, didFinishDownloadingToURL: location, token: token)
         } else if session == taskURLSession {
