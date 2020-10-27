@@ -140,7 +140,7 @@ extension Session {
      */
     @discardableResult
     public func blockViaUsername(_ username: String, modhash: String = "", completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
-        let parameter = ["name": username]
+        let parameter = ["name": username, "api_type": "json"]
         guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path: "/api/block_user", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<JSONAny> in
@@ -150,7 +150,26 @@ extension Session {
         }
         return executeTask(request, handleResponse: closure, completion: completion)
     }
-    
+
+    /**
+     For blocking a user.
+     - parameter username: user's valid Reddit username
+     - parameter modhash: A modhash, default is blank string not nil.
+     - returns: Data task which requests search to reddit.com.
+     */
+    @discardableResult
+    public func blockViaId(_ id: String, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+        let parameter = ["account_id": id]
+        guard let request = URLRequest.requestForOAuth(with: Session.OAuthEndpointURL, path: "/api/block_user", parameter: parameter, method: "POST", token: token)
+            else { throw ReddiftError.canNotCreateURLRequest as NSError }
+        let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<JSONAny> in
+            return Result(from: Response(data: data, urlResponse: response), optional: error)
+                .flatMap(response2Data)
+                .flatMap(data2Json)
+        }
+        return executeTask(request, handleResponse: closure, completion: completion)
+    }
+
     /**
      For unblocking via inbox.
      - parameter id: fullname of a thing
