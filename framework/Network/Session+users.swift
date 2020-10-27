@@ -148,7 +148,7 @@ extension Session {
         let parameters = [
             "container": container,
             "name": name,
-            "type": "friend"
+            "type": type.rawValue
 //            "uh":modhash
         ]
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/friend", parameter: parameters, method: "POST", token: token)
