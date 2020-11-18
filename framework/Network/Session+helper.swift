@@ -136,6 +136,11 @@ func json2RedditAny(from json: JSONAny) -> Result<RedditAny> {
     return Result(fromOptional: object, error: ReddiftError.failedToParseThingFromJsonObject as NSError)
 }
 
+func json2ListingAny(from json: JSONAny) -> Result<Listing> {
+    let object: Listing? = Parser.listing(from: json as! JSONDictionary)
+    return Result(fromOptional: object, error: ReddiftError.failedToParseThingFromJsonObject as NSError)
+}
+
 func json2Flair(from json: JSONAny) -> Result<RedditAny> {
     let object: Any? = Parser.flairAny(from: json)
     return Result(fromOptional: object, error: ReddiftError.failedToParseThingFromJsonObject as NSError)
