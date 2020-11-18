@@ -45,6 +45,8 @@ class Parser: NSObject {
             return userList(from: data)
         case "TrophyList":
             return trophyList(from: data)
+        case "modaction":
+            return ModAction(json: data)
         default:
             return nil
         }
@@ -146,7 +148,7 @@ class Parser: NSObject {
         }
         return result
     }
-    
+
     /**
      Parse list object in JSON
      */
