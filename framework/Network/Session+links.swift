@@ -290,7 +290,7 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+    public func submitLink(_ subreddit: Subreddit, title: String, URL: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, flairText: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
         var parameter = [
             "api_type" : "json",
             "captcha" : captcha,
@@ -302,8 +302,11 @@ extension Session {
             "title" : title,
             "url" : URL
         ]
-        if flairID != nil {
-            parameter["flair_id"] = flairID!
+        if let id = flairID {
+            parameter["flair_id"] = id
+            if let text = flairText {
+                parameter["flair_text"] = text
+            }
         }
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/submit", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
@@ -323,7 +326,7 @@ extension Session {
     - returns: Data task which requests search to reddit.com.
      */
     @discardableResult
-    public func submitText(_ subreddit: Subreddit, title: String, text: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
+    public func submitText(_ subreddit: Subreddit, title: String, text: String, sendReplies: Bool, captcha: String, captchaIden: String, flairID: String?, flairText: String?, completion: @escaping (Result<JSONAny>) -> Void) throws -> URLSessionDataTask {
         var parameter = [
             "api_type" : "json",
             "captcha" : captcha,
@@ -335,8 +338,11 @@ extension Session {
             "text" : text,
             "title" : title
         ]
-        if flairID != nil {
-            parameter["flair_id"] = flairID!
+        if let id = flairID {
+            parameter["flair_id"] = id
+            if let text = flairText {
+                parameter["flair_text"] = text
+            }
         }
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/api/submit", parameter: parameter, method: "POST", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
