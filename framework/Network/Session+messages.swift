@@ -200,7 +200,7 @@ extension Session {
      */
     @discardableResult
     public func getMessage(_ paginator: Paginator, _ messageWhere: MessageWhere, limit: Int = 100, completion: @escaping (Result<Listing>) -> Void) throws -> URLSessionDataTask {
-        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message" + messageWhere.path + "?after=\(paginator.after)", method:"GET", token:token)
+        guard let request = URLRequest.requestForOAuth(with: baseURL, path:"/message" + messageWhere.path + "?after=\(paginator.after)&limit=\(limit)", method:"GET", token:token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<Listing> in
             return Result(from: Response(data: data, urlResponse: response), optional:error)
