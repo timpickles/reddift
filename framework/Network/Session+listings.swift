@@ -66,6 +66,7 @@ extension Session {
         if let context = context {
 			parameter["context"] = String(context)
 		}
+        parameter["profile_img"] = "1"
         guard let request = URLRequest.requestForOAuth(with: baseURL, path: "/comments/" + id + ".json", parameter: parameter, method: "GET", token: token)
             else { throw ReddiftError.canNotCreateURLRequest as NSError }
         let closure = {(data: Data?, response: URLResponse?, error: NSError?) -> Result<(Listing, Listing)> in
