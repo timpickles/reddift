@@ -370,7 +370,9 @@ extension Session {
             "children":commaSeparatedChildren,
             "link_id":name,
             "sort":sort.type,
-            "api_type":"json"
+            "api_type":"json",
+            "profile_img": "1",
+
         ]
         if let id = id {
             parameter["id"] = id
