@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+@testable import Reddift
 
 class ListingsTest: SessionTestSpec {
     
@@ -126,7 +127,7 @@ class ListingsTest: SessionTestSpec {
             do {
                 let documentOpenExpectation = self.expectation(description: "Test to download artcles of the link which is selected randomly from redditdev subreddit, \(sort.description)")
                 if let link = link {
-                    try self.session?.getArticles(link, sort: sort, completion: { (result) -> Void in
+                    try self.session?.getArticles(link.id, sort: sort, completion: { (result) -> Void in
                         var isSucceeded = false
                         switch result {
                         case .failure:

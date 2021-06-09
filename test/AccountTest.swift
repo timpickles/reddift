@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Reddift
 
 class AccountTest: SessionTestSpec {
     /**

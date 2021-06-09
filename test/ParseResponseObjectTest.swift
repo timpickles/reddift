@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+@testable import Reddift
 
 class response2DataObjectTest: XCTestCase {
         

@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+@testable import Reddift
 
 class LinksTest: SessionTestSpec {
     /// Default contents to be used by test
@@ -25,7 +26,7 @@ class LinksTest: SessionTestSpec {
         let documentOpenExpectation = self.expectation(description: "getTestCommentID")
         let link = Link(id: self.testLinkId)
         do {
-            try self.session?.getArticles(link, sort: .new, comments: nil, completion: { (result) -> Void in
+            try self.session?.getArticles(link.id, sort: .new, comments: nil, completion: { (result) -> Void in
                 switch result {
                 case .failure(let error):
                     print(error)

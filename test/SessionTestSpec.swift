@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+@testable import Reddift
 
 /// following extension for test only
 extension Array {

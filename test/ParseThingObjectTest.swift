@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Reddift
 
 extension XCTestCase {
     func jsonFromFileName(_ name: String) -> Any? {
@@ -51,7 +52,7 @@ class ParseThingObjectTest: XCTestCase {
             XCTAssert(object.approvedBy == "")
             XCTAssert(object.controversiality == 0)
             XCTAssert(object.body == "The bot has been having this problem for awhile, there have been thousands of new comments since it last worked properly, so it seems like this must be something recurring? Could it have something to do with our AutoModerator?")
-            XCTAssert(object.edited == false)
+            XCTAssert(object.edited == 0)
             XCTAssert(object.authorFlairCssClass == "")
             XCTAssert(object.downs == 0)
             XCTAssert(object.bodyHtml == "<div class=\"md\"><p>The bot has been having this problem for awhile, there have been thousands of new comments since it last worked properly, so it seems like this must be something recurring? Could it have something to do with our AutoModerator?</p>\n</div>")
@@ -131,7 +132,7 @@ class ParseThingObjectTest: XCTestCase {
             XCTAssert(object.hidden == false)
             XCTAssert(object.thumbnail == "")
             XCTAssert(object.subredditId == "t5_2qizd")
-            XCTAssert(object.edited == false)
+            XCTAssert(object.edited == 0)
             XCTAssert(object.linkFlairCssClass == "")
             XCTAssert(object.authorFlairCssClass == "")
             XCTAssert(object.downs == 0)
@@ -143,7 +144,7 @@ class ParseThingObjectTest: XCTestCase {
             XCTAssert(object.permalink == "/r/redditdev/comments/32wnhw/praw_comment_stream_messes_up_when_getting/")
             XCTAssert(object.stickied == false)
             XCTAssert(object.created == 1429292148)
-            XCTAssert(object.url == "http://www.reddit.com/r/redditdev/comments/32wnhw/praw_comment_stream_messes_up_when_getting/")
+            XCTAssert(object.url?.absoluteString == "http://www.reddit.com/r/redditdev/comments/32wnhw/praw_comment_stream_messes_up_when_getting/")
             XCTAssert(object.authorFlairText == "")
             XCTAssert(object.title == "[PRAW] comment_stream() messes up when getting comments from a certain subreddit.")
             XCTAssert(object.createdUtc == 1429263348)

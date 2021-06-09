@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Reddift
 
 class SessionNoAuthTestSpec: XCTestCase {
     /// timeout duration for asynchronous test
@@ -78,7 +79,7 @@ class SessionNoAuthTestSpec: XCTestCase {
                 case .success(let listing):
                     if let link = listing.children.first as? Link {
                         do {
-                            try self.session?.getArticles(link, sort: CommentSort.new, completion: { (result) -> Void in
+                            try self.session?.getArticles(link.id, sort: CommentSort.new, completion: { (result) -> Void in
                                 switch result {
                                 case .failure(let error):
                                     print(error)

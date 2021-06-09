@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Reddift
 
 extension SubredditsTest {
     func subscribingList() -> [Subreddit] {

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Reddift
 
 extension MultiredditTest {
     /// Get user's multireddit list
